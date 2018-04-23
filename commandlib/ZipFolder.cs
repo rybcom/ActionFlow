@@ -12,6 +12,7 @@ namespace commandlib
 
         public override void DoAction()
         {
+            base.DoAction();
             //lala je smejd
         }
 

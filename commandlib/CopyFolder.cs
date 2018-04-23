@@ -25,7 +25,10 @@ namespace commandlib
 
         public override void DoAction()
         {
-            CopyDir(Source, Destination, CopyPattern);
+         
+            base.DoAction();
+
+            CopyDir(Source, Destination, CopyPattern,true,xxx);
         }
 
         #endregion
@@ -49,7 +52,7 @@ namespace commandlib
                     + sourceDirName);
             }
 
-            DirectoryInfo[] dirs = dir.GetDirectories(searchPattern);
+            DirectoryInfo[] dirs = dir.GetDirectories();
             // If the destination directory doesn't exist, create it.
             if (!Directory.Exists(destDirName))
             {
@@ -65,7 +68,7 @@ namespace commandlib
                 string temppath = Path.Combine(destDirName, file.Name);
                 file.CopyTo(temppath, true);
 
-                //copyCallback(0, file.Name);
+                copyCallback(0, file.Name);
             }
 
             // If copying subdirectories, copy them and their contents to new location.
@@ -81,6 +84,9 @@ namespace commandlib
 
         #endregion
 
-
+        private static void xxx(int a, string t)
+        {
+            Console.Write($"\r {t}");
+        }
     }
 }

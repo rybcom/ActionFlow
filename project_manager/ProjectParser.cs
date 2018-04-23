@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using commandlib;
 
 namespace project_manager
 {
-    internal  class ProjectParser
+    internal class ProjectParser
     {
 
         #region api
@@ -36,17 +37,50 @@ namespace project_manager
 
             foreach (XmlNode node in items)
             {
-                string source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                string destination= MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
-                string pattern = node.Attributes["copy_pattern"].Value;
-                //  int execution_time_second = Int32.Parse(node.Attributes["execution_time"].Value);
 
-                CopyFolder copyFolder = new CopyFolder();
-                copyFolder.Source = source;
-                copyFolder.Destination = destination;
-                copyFolder.CopyPattern = pattern;
+                string action_name = node.Attributes["name"].Value;
+                string action_desc = node.Attributes["desc"].Value;
+                ActionType action_type = (ActionType)Enum.Parse(typeof(ActionType), node.Attributes["type"].Value, true); ;
 
-                this._actions.Add(copyFolder);
+
+
+                ActionBase action = ParseAction(node, action_type);
+
+                action.Type = action_type;
+                action.Name = action_name;
+                action.Description = action_desc;
+
+                this._actions.Add(action);
+            }
+        }
+
+        private ActionBase ParseAction(XmlNode node, ActionType action_type)
+        {
+
+            switch (action_type)
+            {
+                case ActionType.CopyFolder:
+
+                    string source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    string destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
+                    string pattern = node.Attributes["copy_pattern"].Value;
+
+                    CopyFolder copyFolder = new CopyFolder();
+                    copyFolder.Source = source;
+                    copyFolder.Destination = destination;
+                    copyFolder.CopyPattern = pattern;
+
+                    return copyFolder;
+
+                case ActionType.CopyFile:
+                    return null;
+
+                case ActionType.ZipFolder:
+
+                    return null;
+
+                default:
+                    return null;
             }
         }
 
