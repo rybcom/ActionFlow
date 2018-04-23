@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="emil test" description="skuska luska">
+	
+	<action type="copyfolder"
+		 name="okopirovanie seba samoeho"
+		 desc=""  
+
+		 source="||mroot||\temp\source"
+		 destination="||mroot||\temp\dest"
+		 copy_pattern="*"
+		 />
+
+	<action type="copyfolder" 
+		name="kopirujem len .cpp subory"
+		desc=""
+
+		source="||mroot||\temp\source2" 
+		destination="||mroot||\temp\dest2"
+		copy_pattern="*.cpp"
+		 />
+
+	<action type="copyfolder" 
+		name="kopirujem len .h subory"
+		desc=""
+
+		source="||mroot||\temp\source2" 
+		destination="||mroot||\temp\dest2"
+		copy_pattern="*.h"
+		 />
+
+
+<action type="copyfolder" 
+		name="kopirujem total cely temp"
+		desc=""
+
+		source="||mroot||\temp" 
+		destination="||mroot||\temp2"
+		copy_pattern="*"
+		 />
+
+</project>

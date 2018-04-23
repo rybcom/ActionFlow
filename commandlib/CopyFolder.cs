@@ -20,7 +20,6 @@ namespace commandlib
 
         #endregion
 
-
         #region overridden
 
         public override void DoAction()
@@ -28,7 +27,7 @@ namespace commandlib
          
             base.DoAction();
 
-            CopyDir(Source, Destination, CopyPattern,true,xxx);
+            CopyDir(Source, Destination, CopyPattern,true, printCallback);
         }
 
         #endregion
@@ -40,10 +39,12 @@ namespace commandlib
             string destDirName,
             string searchPattern,
             bool copySubDirs = true,
-            Action<int, string> copyCallback = null)
+            Action<string> copyCallback = null)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+         
 
             if (!dir.Exists)
             {
@@ -51,12 +52,17 @@ namespace commandlib
                     "Source directory does not exist or could not be found: "
                     + sourceDirName);
             }
-
+            
             DirectoryInfo[] dirs = dir.GetDirectories();
             // If the destination directory doesn't exist, create it.
             if (!Directory.Exists(destDirName))
             {
                 Directory.CreateDirectory(destDirName);
+            }
+
+            if (dir.FullName.Split('\\').Length < 6)
+            {
+                copyCallback(dir.FullName);
             }
 
             // Get the files in the directory and copy them to the new location.
@@ -68,7 +74,6 @@ namespace commandlib
                 string temppath = Path.Combine(destDirName, file.Name);
                 file.CopyTo(temppath, true);
 
-                copyCallback(0, file.Name);
             }
 
             // If copying subdirectories, copy them and their contents to new location.
@@ -84,9 +89,9 @@ namespace commandlib
 
         #endregion
 
-        private static void xxx(int a, string t)
+        private static void printCallback(string t)
         {
-            Console.Write($"\r {t}");
+            Console.WriteLine($"\t {t}");
         }
     }
 }
