@@ -8,9 +8,14 @@ namespace commandlib
 {
     public class CopyFile : ActionBase
     {
+
+        #region overridden
+
         public override void DoAction()
         {
             //lala je smejd
         }
+
+        #endregion
     }
 }
