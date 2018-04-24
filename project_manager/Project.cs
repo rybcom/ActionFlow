@@ -20,6 +20,10 @@ namespace project_manager
 
         public void Execute()
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"Run project {this.Name} [ {this.Description} ]");
+            Console.ResetColor();
+
             foreach(ActionBase action in _actionList)
             {
                 action.DoAction();

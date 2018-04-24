@@ -27,9 +27,13 @@ namespace commandlib
 
         public virtual void DoAction()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+
             Console.WriteLine($" \nExecute Type [ {Enum.GetName(typeof(ActionType),Type)} ]" +
                 $" Name [ {this.Name} ] " +
              $"Description [ {this.Description} ]");
+
+            Console.ResetColor();
         }
 
         #endregion
