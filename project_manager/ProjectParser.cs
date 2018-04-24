@@ -59,6 +59,13 @@ namespace project_manager
 
             switch (action_type)
             {
+                case ActionType.Wait:
+                    int waittime=Convert.ToInt32(node.Attributes["duration_ms"].Value);
+
+                    WaitAction wait= new WaitAction();
+                    wait.Milliseconds = waittime;
+                    return wait;
+
                 case ActionType.CopyFolder:
 
                     string source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
