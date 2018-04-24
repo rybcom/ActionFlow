@@ -74,12 +74,27 @@ namespace project_manager
 
                     return copyFolder;
 
-                case ActionType.CopyFile:
-                    return null;
+                case ActionType.DeleteFiles:
 
-                case ActionType.ZipFolder:
+                    string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    string delete_pattern = node.Attributes["delete_filepattern"].Value;
+                    bool recursive_delete = Convert.ToBoolean(node.Attributes["recursive"].Value);
 
-                    return null;
+                    DeleteFiles delteFiles= new DeleteFiles();
+                    delteFiles.SourceFolder = sourceFolder;
+                    delteFiles.DeletePattern = delete_pattern;
+                    delteFiles.RecursiveDelete = recursive_delete;
+                    return delteFiles;
+
+                case ActionType.DeleteFolders:
+
+                    sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    delete_pattern = node.Attributes["delete_folderpattern"].Value;
+
+                    DeleteFolders deleteFolders = new DeleteFolders();
+                    deleteFolders.SourceFolder = sourceFolder;
+                    deleteFolders.DeletePattern = delete_pattern;
+                    return deleteFolders;
 
                 default:
                     return null;

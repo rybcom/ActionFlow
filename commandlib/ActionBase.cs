@@ -9,6 +9,8 @@ namespace commandlib
     public enum ActionType
     {
         CopyFolder,
+        DeleteFiles,
+        DeleteFolders,
         CopyFile,
         ZipFolder
     }
