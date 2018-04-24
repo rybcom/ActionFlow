@@ -63,12 +63,14 @@ namespace project_manager
 
                     string source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
                     string destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
-                    string pattern = node.Attributes["copy_pattern"].Value;
+                    string file_pattern = node.Attributes["copy_filepattern"].Value;
+                    string dir_pattern = node.Attributes["copy_dirpattern"].Value;
 
                     CopyFolder copyFolder = new CopyFolder();
                     copyFolder.Source = source;
                     copyFolder.Destination = destination;
-                    copyFolder.CopyPattern = pattern;
+                    copyFolder.CopyFilePattern = file_pattern;
+                    copyFolder.CopyDirPattern= dir_pattern;
 
                     return copyFolder;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace commandlib
@@ -16,7 +17,9 @@ namespace commandlib
 
         public string Destination { get; set; }
 
-        public string CopyPattern { get; set; }
+        public string CopyFilePattern { get; set; }
+
+        public string CopyDirPattern { get; set; }
 
         #endregion
 
@@ -27,7 +30,7 @@ namespace commandlib
          
             base.DoAction();
 
-            CopyDir(Source, Destination, CopyPattern,true, printCallback);
+            CopyDir(Source, Destination, CopyFilePattern,CopyDirPattern,true, printCallback);
         }
 
         #endregion
@@ -37,14 +40,13 @@ namespace commandlib
         private static void CopyDir(
             string sourceDirName, 
             string destDirName,
-            string searchPattern,
+            string copyFileRegexPattern,
+            string copyDirRegexPattern,
             bool copySubDirs = true,
             Action<string> copyCallback = null)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-
-         
 
             if (!dir.Exists)
             {
@@ -53,7 +55,6 @@ namespace commandlib
                     + sourceDirName);
             }
             
-            DirectoryInfo[] dirs = dir.GetDirectories();
             // If the destination directory doesn't exist, create it.
             if (!Directory.Exists(destDirName))
             {
@@ -66,7 +67,7 @@ namespace commandlib
             }
 
             // Get the files in the directory and copy them to the new location.
-            FileInfo[] files = dir.GetFiles(searchPattern);
+            var files = dir.GetFiles().Where(f=>  Regex.IsMatch(f.FullName, copyFileRegexPattern));
 
             foreach (FileInfo file in files)
             {
@@ -76,13 +77,15 @@ namespace commandlib
 
             }
 
+            var dirs = dir.GetDirectories().Where(d => Regex.IsMatch(d.FullName, copyDirRegexPattern)); ;
+
             // If copying subdirectories, copy them and their contents to new location.
             if (copySubDirs)
             {
                 foreach (DirectoryInfo subdir in dirs)
                 {
-                    string temppath = Path.Combine(destDirName, subdir.Name);
-                    CopyDir(subdir.FullName, temppath, searchPattern, copySubDirs, copyCallback);
+                    string destTempPath = Path.Combine(destDirName, subdir.Name);
+                    CopyDir(subdir.FullName, destTempPath, copyFileRegexPattern, copyDirRegexPattern,copySubDirs, copyCallback);
                 }
             }
         }
