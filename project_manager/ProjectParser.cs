@@ -81,6 +81,16 @@ namespace project_manager
 
                     return copyFolder;
 
+                case ActionType.CopyFile:
+
+                    source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
+
+                    CopyFile copyFile = new CopyFile();
+                    copyFile.Source = source;
+                    copyFile.Destination = destination;
+                    return copyFile;
+
                 case ActionType.DeleteFiles:
 
                     string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
