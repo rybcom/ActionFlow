@@ -27,12 +27,21 @@ namespace commandlib
         #endregion
 
         #region to override
-
+    
         public virtual void DoAction()
+        {
+            LogConsole();
+        }
+
+        #endregion
+
+        #region private methods
+
+        private void LogConsole()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Console.WriteLine($" \nExecute Type [ {Enum.GetName(typeof(ActionType),Type)} ]" +
+            Console.WriteLine($" \nExecute Type [ {Enum.GetName(typeof(ActionType), Type)} ]" +
                 $" Name [ {this.Name} ] " +
              $"Description [ {this.Description} ]");
 
@@ -40,5 +49,6 @@ namespace commandlib
         }
 
         #endregion
+
     }
 }
