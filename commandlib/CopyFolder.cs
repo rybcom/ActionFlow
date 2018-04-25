@@ -30,6 +30,8 @@ namespace commandlib
          
             base.DoAction();
 
+            this._allFiles = Directory.GetFiles(Source, "*", SearchOption.AllDirectories).Where(f => Regex.IsMatch(f, CopyFilePattern)).ToArray().Length;
+
             CopyDir(Source, Destination, CopyFilePattern,CopyDirPattern,true, printCallback);
         }
 
@@ -37,13 +39,13 @@ namespace commandlib
 
         #region private methods
 
-        private static void CopyDir(
+        private  void CopyDir(
             string sourceDirName, 
             string destDirName,
             string copyFileRegexPattern,
             string copyDirRegexPattern,
             bool copySubDirs = true,
-            Action<string> copyCallback = null)
+            Action<FileInfo> copyCallback = null)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
@@ -61,19 +63,25 @@ namespace commandlib
                 Directory.CreateDirectory(destDirName);
             }
 
-            if (dir.FullName.Split('\\').Length < 6)
-            {
-                copyCallback(dir.FullName);
-            }
+
 
             // Get the files in the directory and copy them to the new location.
             var files = dir.GetFiles().Where(f=>  Regex.IsMatch(f.FullName, copyFileRegexPattern));
 
             foreach (FileInfo file in files)
             {
-                //index++;
-                string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, true);
+                try
+                {
+                    string temppath = Path.Combine(destDirName, file.Name);
+                    file.CopyTo(temppath, true);
+                    copyCallback(file);
+                }
+                catch (Exception e)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(e.Message);
+                    Console.ResetColor();
+                }
 
             }
 
@@ -92,9 +100,15 @@ namespace commandlib
 
         #endregion
 
-        private static void printCallback(string t)
+        private void printCallback(FileInfo info)
         {
-            Console.WriteLine($"\t {t}");
+            this._processedFiles++;
+            int percentageProcessed = (int)(_processedFiles * 100.0/ (double)_allFiles);
+            string a =($"\r\t {percentageProcessed} % {info.Name}");
+            Console.Write(a);
         }
+
+        private int _processedFiles;
+        private int _allFiles;
     }
 }
