@@ -103,6 +103,16 @@ namespace project_manager
                     deleteFolders.DeletePattern = delete_pattern;
                     return deleteFolders;
 
+                case ActionType.ZipFolder:
+
+                    sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    string zipfile_destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["zipfile"].Value);
+
+                    ZipFolder zipFolder = new ZipFolder();
+                    zipFolder.SourceFolder = sourceFolder;
+                    zipFolder.DestinationZip = zipfile_destination;
+                    return zipFolder;
+
                 default:
                     return null;
             }

@@ -30,7 +30,7 @@ namespace commandlib
 
         public virtual void DoAction()
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             Console.WriteLine($" \nExecute Type [ {Enum.GetName(typeof(ActionType),Type)} ]" +
                 $" Name [ {this.Name} ] " +

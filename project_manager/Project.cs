@@ -20,11 +20,9 @@ namespace project_manager
 
         public void Execute()
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"Run project {this.Name} [ {this.Description} ]");
-            Console.ResetColor();
+            LogConsole();
 
-            foreach(ActionBase action in _actionList)
+            foreach (ActionBase action in _actionList)
             {
                 action.DoAction();
             }
@@ -36,6 +34,19 @@ namespace project_manager
 
             ProjectParser parser = new ProjectParser(this,this._actionList);
             parser.ParseProjectFromFile(filePath);
+        }
+
+        #endregion
+
+        #region private methods
+
+        private void LogConsole()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"Run project : {this.Name} \n" +
+                $"Description : {this.Description} ");
+
+            Console.ResetColor();
         }
 
         #endregion
