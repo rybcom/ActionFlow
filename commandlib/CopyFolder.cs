@@ -72,12 +72,12 @@ namespace commandlib
             {
                 try
                 {
+                    copyCallback(file);
                     string temppath = Path.Combine(destDirName, file.Name);
                     file.CopyTo(temppath, true);
-                    copyCallback(file);
                 }
                 catch (Exception e)
-                {
+                { 
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(e.Message);
                     Console.ResetColor();
@@ -104,8 +104,17 @@ namespace commandlib
         {
             this._processedFiles++;
             int percentageProcessed = (int)(_processedFiles * 100.0/ (double)_allFiles);
+            ClearCurrentConsoleLine();
             string a =($"\r\t {percentageProcessed} % {info.Name}");
             Console.Write(a);
+        }
+
+        private void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
         }
 
         private int _processedFiles;
