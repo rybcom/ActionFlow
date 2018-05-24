@@ -9,6 +9,7 @@ namespace commandlib
     public enum ActionType
     {
         Wait,
+        Execute,
         CopyFolder,
         DeleteFiles,
         DeleteFolders,
