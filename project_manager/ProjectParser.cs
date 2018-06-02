@@ -66,6 +66,17 @@ namespace project_manager
                     wait.Milliseconds = waittime;
                     return wait;
 
+                case ActionType.Execute:
+
+                    string filename = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["filename"].Value);
+                    string paramxs = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["params"].Value);
+
+                    ExecuteProcess executeAction = new ExecuteProcess();
+                    executeAction.FileName = filename;
+                    executeAction.Params = paramxs;
+                    return executeAction;
+
+
                 case ActionType.CopyFolder:
 
                     string source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);

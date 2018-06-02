@@ -9,6 +9,7 @@ namespace commandlib
     public enum ActionType
     {
         Wait,
+        Execute,
         CopyFolder,
         DeleteFiles,
         DeleteFolders,
@@ -27,10 +28,14 @@ namespace commandlib
         #endregion
 
         #region to override
-    
+
+        
+
         public virtual void DoAction()
         {
             LogConsole();
+
+            SetConsoleTitle();
         }
 
         #endregion
@@ -46,6 +51,11 @@ namespace commandlib
              $"Description [ {this.Description} ]");
 
             Console.ResetColor();
+        }
+
+        private void SetConsoleTitle()
+        {
+            Console.Title = this.Name;
         }
 
         #endregion
