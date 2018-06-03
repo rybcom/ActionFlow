@@ -134,6 +134,15 @@ namespace project_manager
                     zipFolder.DestinationZip = zipfile_destination;
                     return zipFolder;
 
+
+                case ActionType.ShowDialog:
+
+                    ShowDialog showDialog = new ShowDialog();
+                    showDialog.Message = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["message"].Value);
+                    showDialog.MessageType = (ShowDialog.Type)Enum.Parse(typeof(ShowDialog.Type), node.Attributes["messagetype"].Value, true);
+
+                    return showDialog;
+
                 default:
                     return null;
             }

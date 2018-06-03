@@ -14,7 +14,8 @@ namespace commandlib
         DeleteFiles,
         DeleteFolders,
         CopyFile,
-        ZipFolder
+        ZipFolder,
+        ShowDialog
     }
     
     public abstract class ActionBase
