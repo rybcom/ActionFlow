@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>C:\Users\admin\Documents\radohekl.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,4 +60,14 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)$(OutDir)commandlib.dll" "%25mroot%25\system\bin\action_flow\" /Y
+xcopy "$(ProjectDir)$(OutDir)commandlib.pdb" "%25mroot%25\system\bin\action_flow\" /Y
+xcopy "$(ProjectDir)$(OutDir)project_manager.dll" "%25mroot%25\system\bin\action_flow\" /Y
+xcopy "$(ProjectDir)$(OutDir)project_manager.pdb" "%25mroot%25\system\bin\action_flow\" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

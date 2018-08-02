@@ -9,11 +9,13 @@ namespace commandlib
     public enum ActionType
     {
         Wait,
+        Execute,
         CopyFolder,
         DeleteFiles,
         DeleteFolders,
         CopyFile,
-        ZipFolder
+        ZipFolder,
+        ShowDialog
     }
     
     public abstract class ActionBase

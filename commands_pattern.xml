@@ -1,0 +1,72 @@
+<action type="wait" 
+		name=""
+		desc="uspatie processu na dany pocet milisekund"
+
+		duration_ms="" 
+		 />
+
+
+<action type="execute" 
+		name=""
+		desc="spustenie procesu s danymi parametrami"
+
+		filename=""
+		params="" 
+		 />		 
+
+<action type="copyfolder" 
+		name=""
+		desc="rekurzivne nakopirovanie adresara s podadresarmi a subormi, ktore splnaju kopirovaci vzor"
+
+		source=""
+		destination="" 
+		copy_filepattern="(.)" 
+		copy_dirpattern="(.)" 
+		 />		 
+
+
+<action type="copyfile" 
+		name=""
+		desc="nakopirovanie suboru"
+
+		source=""
+		destination="" 
+		 />		 
+
+
+<action type="deletefiles" 
+		name=""
+		desc="vymazanie suborov zo zadaneho adresara ( tie ktore vyhovuju vzoru pre vymazanie)"
+
+		source=""
+		delete_filepattern="" 
+		recursive="true" 
+		 />		 
+
+<action type="deletefolders" 
+		name=""
+		desc="vymazanie adresarov"
+
+		source=""
+		delete_folderpattern="" 
+		 />		 
+
+
+<action type="zipfolder" 
+		name=""
+		desc="vytvorenie zip archivu zo zvoleneho priecinka do zadaneho cieloveho subora"
+
+		source=""
+		zipfile="" 
+		 />		 
+
+
+<action type="showdialog" 
+		name=""
+		desc="zobrazenie dialogoveho okna so spravou"
+
+		message=""
+		messagetype="info" 
+		 />		 
+
+
