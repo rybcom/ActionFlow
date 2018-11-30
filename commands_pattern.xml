@@ -1,6 +1,6 @@
 <action type="wait" 
 		name=""
-		desc="uspatie processu na dany pocet milisekund"
+		desc="Slow down the process for millions of milliseconds"
 
 		duration_ms="" 
 		 />
@@ -8,7 +8,7 @@
 
 <action type="execute" 
 		name=""
-		desc="spustenie procesu s danymi parametrami"
+		desc="Starting the process with the given parameters"
 
 		filename=""
 		params="" 
@@ -16,7 +16,7 @@
 
 <action type="copyfolder" 
 		name=""
-		desc="rekurzivne nakopirovanie adresara s podadresarmi a subormi, ktore splnaju kopirovaci vzor"
+		desc="recursively copying a directory with subdirectories and files that complete the copy pattern"
 
 		source=""
 		destination="" 
@@ -27,7 +27,7 @@
 
 <action type="copyfile" 
 		name=""
-		desc="nakopirovanie suboru"
+		desc="Copy the file"
 
 		source=""
 		destination="" 
@@ -36,7 +36,7 @@
 
 <action type="deletefiles" 
 		name=""
-		desc="vymazanie suborov zo zadaneho adresara ( tie ktore vyhovuju vzoru pre vymazanie)"
+		desc="Deleting files from the specified directory that complete the delete pattern"
 
 		source=""
 		delete_filepattern="" 
@@ -45,7 +45,7 @@
 
 <action type="deletefolders" 
 		name=""
-		desc="vymazanie adresarov"
+		desc="Delete folders"
 
 		source=""
 		delete_folderpattern="" 
@@ -54,7 +54,7 @@
 
 <action type="zipfolder" 
 		name=""
-		desc="vytvorenie zip archivu zo zvoleneho priecinka do zadaneho cieloveho subora"
+		desc="Create a zip archive from the selected folder to the specified target file"
 
 		source=""
 		zipfile="" 
@@ -63,7 +63,7 @@
 
 <action type="showdialog" 
 		name=""
-		desc="zobrazenie dialogoveho okna so spravou"
+		desc="Show dialog with message"
 
 		message=""
 		messagetype="info" 

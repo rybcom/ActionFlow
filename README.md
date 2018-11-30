@@ -22,25 +22,19 @@
 
 ---
 
-## Example (Optional)
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-```
-
----
 
 ## wait
 
-- All the `code` required to get started
-- Images of what it should look like
+```xml
+
+<action type="wait" 
+		name=""
+		desc="Slow down the process for millions of milliseconds"
+
+		duration_ms="" 
+/>
+
+```
 
 ### execute
 
