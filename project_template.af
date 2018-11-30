@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project name="test project" description="lala je smejd">
+<project 
+	name="testing project aka lala je smed" 
+	description="testings ....">
 	
-	<action type="copyfolder"
+	<action 
+		type="wait" 
+		name="wait for 100 milliseconds "
+		desc="Slow down the process for millions of milliseconds"
+		
+		duration_ms="100" 
+	 />
+
+	<action 
+		type="copyfolder"
 		 name="copy source to dest"
 		 desc=""  
 
 		 source="||mroot||\temp\source"
 		 destination="||mroot||\temp\dest"
-		 copy_pattern="*"
-		 />
+		 copy_filepattern="(.)" 
+		 copy_dirpattern="(.)" 
+	/>
 
-	<action type="copyfolder" 
-		name="copy only .cpp files"
-		desc=""
+	<action
+		 type="execute"
+		 name="ditto cliboard manager "
+		 desc="start ditto"  
+		
+		 filename="||programs||\ditto\Ditto.exe"
+		 params=""
+	/>
 
-		source="||mroot||\temp\source2" 
-		destination="||mroot||\temp\dest2"
-		copy_pattern="*.cpp"
-		 />
+	<action
+		 type="showdialog"
+		 name="notify"
+		 desc="notify about result"  
+		 
+		 message="result"
+		 messagetype="info"
+	 />
 
-	<action type="copyfolder" 
-		name="copy only .h files"
-		desc=""
-
-		source="||mroot||\temp\source2" 
-		destination="||mroot||\temp\dest2"
-		copy_pattern="*.h"
-		 />
-
-
-<action type="copyfolder" 
-		name="copy temp folder"
-		desc=""
-
-		source="||mroot||\temp" 
-		destination="||mroot||\temp2"
-		copy_pattern="*"
-		 />
 
 </project>

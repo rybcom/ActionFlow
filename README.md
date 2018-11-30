@@ -26,7 +26,7 @@
 		type="wait" 
 		name="wait for 100 milliseconds "
 		desc="Slow down the process for millions of milliseconds"
-
+		
 		duration_ms="100" 
 	 />
 
@@ -37,13 +37,15 @@
 
 		 source="||mroot||\temp\source"
 		 destination="||mroot||\temp\dest"
-		 copy_pattern="*"
+		 copy_filepattern="(.)" 
+		 copy_dirpattern="(.)" 
 	/>
 
 	<action
 		 type="execute"
 		 name="ditto cliboard manager "
 		 desc="start ditto"  
+		
 		 filename="||programs||\ditto\Ditto.exe"
 		 params=""
 	/>
@@ -52,15 +54,9 @@
 		 type="showdialog"
 		 name="notify"
 		 desc="notify about result"  
+		 
 		 message="result"
 		 messagetype="info"
-	 />
-
-
-	 < other actions 
-	 	.
-	 	.
-	 	.
 	 />
 
 </project>
