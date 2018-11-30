@@ -27,10 +27,11 @@
 
 ```xml
 
-<action type="wait" 
+<action
+		type="wait" 
 		name=""
+	
 		desc="Slow down the process for millions of milliseconds"
-
 		duration_ms="" 
 />
 
@@ -38,12 +39,82 @@
 
 ### execute
 
-- Clone this repo to your local machine using `https://github.com/fvcproductions/SOMEREPO`
+<action
+		type="execute" 
+		name=""
+		desc="Starting the process with the given parameters"
+
+		filename=""
+		params="" 
+/>		 
 
 
 ## copyfolder
+
+<action 
+		type="copyfolder" 
+		name=""
+		desc="recursively copying a directory with subdirectories and files that complete the copy pattern"
+
+		source=""
+		destination="" 
+		copy_filepattern="(.)" 
+		copy_dirpattern="(.)" 
+/>
+
 ## copyfile
+
+<action 
+		type="copyfile" 
+		name=""
+		desc="Copy the file"
+
+		source=""
+		destination="" 
+/>	
 ## deletefiles
+
+<action 
+		type="deletefiles" 
+		name=""
+		desc="Deleting files from the specified directory that complete the delete pattern"
+
+		source=""
+		delete_filepattern="" 
+		recursive="true" 
+/>	
+
 ## deletefolders
+
+<action 
+		type="deletefolders" 
+		name=""
+		desc="Delete folders"
+
+		source=""
+		delete_folderpattern="" 
+/>		 
+
 ## zipfolder
+
+<action
+		type="zipfolder" 
+		name=""
+		desc="Create a zip archive from the selected folder to the specified target file"
+
+		source=""
+		zipfile="" 
+/>		 
+
 ## showdialog
+
+<action 
+		type="showdialog" 
+		name=""
+		desc="Show dialog with message"
+
+		message=""
+		messagetype="info" 
+/>		
+
+---
