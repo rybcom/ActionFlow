@@ -24,20 +24,20 @@ namespace commandlib
 
         public override void DoAction()
         {
-         
+
             base.DoAction();
 
             this._allFiles = Directory.GetFiles(Source, "*", SearchOption.AllDirectories).Where(f => Regex.IsMatch(f, CopyFilePattern)).ToArray().Length;
 
-            CopyDir(Source, Destination, CopyFilePattern,CopyDirPattern,true, printCallback);
+            CopyDir(Source, Destination, CopyFilePattern, CopyDirPattern, true, printCallback);
         }
 
         #endregion
 
         #region private methods
 
-        private  void CopyDir(
-            string sourceDirName, 
+        private void CopyDir(
+            string sourceDirName,
             string destDirName,
             string copyFileRegexPattern,
             string copyDirRegexPattern,
@@ -53,7 +53,7 @@ namespace commandlib
                     "Source directory does not exist or could not be found: "
                     + sourceDirName);
             }
-            
+
             // If the destination directory doesn't exist, create it.
             if (!Directory.Exists(destDirName))
             {
@@ -63,7 +63,7 @@ namespace commandlib
 
 
             // Get the files in the directory and copy them to the new location.
-            var files = dir.GetFiles().Where(f=>  Regex.IsMatch(f.FullName, copyFileRegexPattern));
+            var files = dir.GetFiles().Where(f => Regex.IsMatch(f.FullName, copyFileRegexPattern));
 
             foreach (FileInfo file in files)
             {
@@ -74,7 +74,7 @@ namespace commandlib
                     file.CopyTo(temppath, true);
                 }
                 catch (Exception e)
-                { 
+                {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(e.Message);
                     Console.ResetColor();
@@ -90,20 +90,24 @@ namespace commandlib
                 foreach (DirectoryInfo subdir in dirs)
                 {
                     string destTempPath = Path.Combine(destDirName, subdir.Name);
-                    CopyDir(subdir.FullName, destTempPath, copyFileRegexPattern, copyDirRegexPattern,copySubDirs, copyCallback);
+                    CopyDir(subdir.FullName, destTempPath, copyFileRegexPattern, copyDirRegexPattern, copySubDirs, copyCallback);
                 }
             }
         }
 
-        #endregion
 
         private void printCallback(FileInfo info)
         {
             this._processedFiles++;
-            int percentageProcessed = (int)(_processedFiles * 100.0/ (double)_allFiles);
+            LogCopyFolderCallbackMessage(info);
+        }
+
+        private void LogCopyFolderCallbackMessage(FileInfo info)
+        {
+            int percentageProcessed = (int)(_processedFiles * 100.0 / (double)_allFiles);
+
             ClearCurrentConsoleLine();
-            string a =($"\r\t {percentageProcessed} % {info.Name}");
-            Console.Write(a);
+            Console.Write($"\r\t   [ { percentageProcessed} % done ]  - {info.Name}");
         }
 
         private void ClearCurrentConsoleLine()
@@ -114,7 +118,14 @@ namespace commandlib
             Console.SetCursorPosition(0, currentLineCursor);
         }
 
+        #endregion
+
+        #region members
+
         private int _processedFiles;
         private int _allFiles;
+
+        #endregion
+
     }
 }
