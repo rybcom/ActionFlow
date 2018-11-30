@@ -6,6 +6,15 @@ namespace project_manager
 {
     public class Project
     {
+        const string project_title  = @"
+ █████╗  ██████╗████████╗██╗ ██████╗ ███╗   ██╗    ███████╗██╗      ██████╗ ██╗    ██╗
+██╔══██╗██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║    ██╔════╝██║     ██╔═══██╗██║    ██║
+███████║██║        ██║   ██║██║   ██║██╔██╗ ██║    █████╗  ██║     ██║   ██║██║ █╗ ██║
+██╔══██║██║        ██║   ██║██║   ██║██║╚██╗██║    ██╔══╝  ██║     ██║   ██║██║███╗██║
+██║  ██║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║    ██║     ███████╗╚██████╔╝╚███╔███╔╝
+╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝ 
+";
+
         #region property
 
         public string Name { get; set; }
@@ -39,6 +48,8 @@ namespace project_manager
 
         private void LogConsole()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(project_title);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"Run project : {this.Name} \n" +
                 $"Description : {this.Description} ");
