@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="emil test" description="skuska luska">
+<project name="test project" description="lala je smejd">
 	
 	<action type="copyfolder"
-		 name="okopirovanie seba samoeho"
+		 name="copy source to dest"
 		 desc=""  
 
 		 source="||mroot||\temp\source"
@@ -12,7 +12,7 @@
 		 />
 
 	<action type="copyfolder" 
-		name="kopirujem len .cpp subory"
+		name="copy only .cpp files"
 		desc=""
 
 		source="||mroot||\temp\source2" 
@@ -21,7 +21,7 @@
 		 />
 
 	<action type="copyfolder" 
-		name="kopirujem len .h subory"
+		name="copy only .h files"
 		desc=""
 
 		source="||mroot||\temp\source2" 
@@ -31,7 +31,7 @@
 
 
 <action type="copyfolder" 
-		name="kopirujem total cely temp"
+		name="copy temp folder"
 		desc=""
 
 		source="||mroot||\temp" 
