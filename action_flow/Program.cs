@@ -1,6 +1,5 @@
 ﻿using System;
 using project_manager;
-using mroot;
 
 namespace action_flow
 {
@@ -14,7 +13,7 @@ namespace action_flow
             }
             else
             {
-                string project_path = MRoot.Instance.SubstituteEnviroVariables(args[0]);
+                string project_path = args[0];
 
                 Project project = new Project();
 

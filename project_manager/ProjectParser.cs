@@ -1,5 +1,4 @@
 ﻿using commandlib;
-using mroot;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -64,8 +63,8 @@ namespace project_manager
 
                 case ActionType.Execute:
 
-                    string filename = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["filename"].Value);
-                    string paramxs = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["params"].Value);
+                    string filename = node.Attributes["filename"].Value;
+                    string paramxs = node.Attributes["params"].Value;
 
                     ExecuteProcess executeAction = new ExecuteProcess();
                     executeAction.FileName = filename;
@@ -75,8 +74,8 @@ namespace project_manager
 
                 case ActionType.CopyFolder:
 
-                    string source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    string destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
+                    string source = node.Attributes["source"].Value;
+                    string destination = node.Attributes["destination"].Value;
                     string file_pattern = node.Attributes["copy_filepattern"].Value;
                     string dir_pattern = node.Attributes["copy_dirpattern"].Value;
 
@@ -90,8 +89,8 @@ namespace project_manager
 
                 case ActionType.CopyFile:
 
-                    source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
+                    source = node.Attributes["source"].Value;
+                    destination = node.Attributes["destination"].Value;
 
                     CopyFile copyFile = new CopyFile();
                     copyFile.Source = source;
@@ -100,7 +99,7 @@ namespace project_manager
 
                 case ActionType.DeleteFiles:
 
-                    string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    string sourceFolder = node.Attributes["source"].Value;
                     string delete_pattern = node.Attributes["delete_filepattern"].Value;
                     bool recursive_delete = Convert.ToBoolean(node.Attributes["recursive"].Value);
 
@@ -112,7 +111,7 @@ namespace project_manager
 
                 case ActionType.DeleteFolders:
 
-                    sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    sourceFolder = node.Attributes["source"].Value;
                     delete_pattern = node.Attributes["delete_folderpattern"].Value;
 
                     DeleteFolders deleteFolders = new DeleteFolders();
@@ -122,8 +121,8 @@ namespace project_manager
 
                 case ActionType.ZipFolder:
 
-                    sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    string zipfile_destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["zipfile"].Value);
+                    sourceFolder = node.Attributes["source"].Value;
+                    string zipfile_destination = node.Attributes["zipfile"].Value;
 
                     ZipFolder zipFolder = new ZipFolder();
                     zipFolder.SourceFolder = sourceFolder;
@@ -134,7 +133,7 @@ namespace project_manager
                 case ActionType.ShowDialog:
 
                     ShowDialog showDialog = new ShowDialog();
-                    showDialog.Message = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["message"].Value);
+                    showDialog.Message = node.Attributes["message"].Value;
                     showDialog.MessageType = (ShowDialog.Type)Enum.Parse(typeof(ShowDialog.Type), node.Attributes["messagetype"].Value, true);
 
                     return showDialog;
