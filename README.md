@@ -9,7 +9,7 @@
 
 ---
 
-<img src="https://cdn1.iconfinder.com/data/icons/artificial-intelligence-1-2/128/Algorithm-Program-Data-Flow-Hierarchy-Developing-512.png" title="ActionFlow" alt="ActionFlow">
+<img src="action_flow_image.png" title="ActionFlow" alt="ActionFlow" >
 
 ---
 
@@ -37,6 +37,12 @@
 		 messagetype="info"
 	 />
 
+	 < other actions 
+	 	.
+	 	.
+	 	.
+	 />
+	 
 </project>
 ```
 
@@ -44,7 +50,7 @@
 
 ## Example running actionflow file
 
-(set action_flow.exe default app for .af files)
+> set **action_flow.exe** as  default app for **.af** files
 
 or run
 
