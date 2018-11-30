@@ -20,6 +20,7 @@ namespace commandlib
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool   Enabled { get; set; }
         public ActionType Type { get; set; }
 
         #endregion

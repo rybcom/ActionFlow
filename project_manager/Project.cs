@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using commandlib;
+using System.Linq;
 
 namespace project_manager
 {
@@ -41,7 +42,7 @@ namespace project_manager
         {
             LogConsoleStart();
 
-            foreach (ActionBase action in _actionList)
+            foreach (ActionBase action in _actionList.Where(item => item.Enabled == true))
             {
                 action.DoAction();
             }
