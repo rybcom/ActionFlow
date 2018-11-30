@@ -6,7 +6,9 @@ namespace project_manager
 {
     public class Project
     {
-        const string project_title  = @"
+        #region ascii_texts
+
+        const string project_title = @"
  █████╗  ██████╗████████╗██╗ ██████╗ ███╗   ██╗    ███████╗██╗      ██████╗ ██╗    ██╗
 ██╔══██╗██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║    ██╔════╝██║     ██╔═══██╗██║    ██║
 ███████║██║        ██║   ██║██║   ██║██╔██╗ ██║    █████╗  ██║     ██║   ██║██║ █╗ ██║
@@ -15,10 +17,21 @@ namespace project_manager
 ╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝ 
 ";
 
+        const string end_title = @"
+                              ████████╗██╗  ██╗███████╗    ███████╗███╗   ██╗██████╗                                   
+▄ ██╗▄    ▄ ██╗▄    ▄ ██╗▄    ╚══██╔══╝██║  ██║██╔════╝    ██╔════╝████╗  ██║██╔══██╗    ▄ ██╗▄    ▄ ██╗▄    ▄ ██╗▄    
+ ████╗     ████╗     ████╗       ██║   ███████║█████╗      █████╗  ██╔██╗ ██║██║  ██║     ████╗     ████╗     ████╗    
+▀╚██╔▀    ▀╚██╔▀    ▀╚██╔▀       ██║   ██╔══██║██╔══╝      ██╔══╝  ██║╚██╗██║██║  ██║    ▀╚██╔▀    ▀╚██╔▀    ▀╚██╔▀    
+  ╚═╝       ╚═╝       ╚═╝        ██║   ██║  ██║███████╗    ███████╗██║ ╚████║██████╔╝      ╚═╝       ╚═╝       ╚═╝     
+                                 ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝                                   
+";
+
+        #endregion  
+
         #region property
 
         public string Name { get; set; }
-        public string Description{ get; set; }
+        public string Description { get; set; }
 
         #endregion
 
@@ -26,19 +39,21 @@ namespace project_manager
 
         public void Execute()
         {
-            LogConsole();
+            LogConsoleStart();
 
             foreach (ActionBase action in _actionList)
             {
                 action.DoAction();
             }
+
+            LogConsoleEnd();
         }
 
         public void LoadFromFile(string filePath)
         {
             _actionList = new List<ActionBase>();
 
-            ProjectParser parser = new ProjectParser(this,this._actionList);
+            ProjectParser parser = new ProjectParser(this, this._actionList);
             parser.ParseProjectFromFile(filePath);
         }
 
@@ -46,14 +61,21 @@ namespace project_manager
 
         #region private methods
 
-        private void LogConsole()
+        private void LogConsoleStart()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(project_title);
+            Console.WriteLine(Project.project_title);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"Run project : {this.Name} \n" +
                 $"Description : {this.Description} ");
 
+            Console.ResetColor();
+        }
+
+        private void LogConsoleEnd()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Project.end_title);
             Console.ResetColor();
         }
 
