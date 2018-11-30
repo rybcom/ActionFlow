@@ -1,5 +1,4 @@
 
-
 ---
 
 # ActionFlow
@@ -10,9 +9,50 @@
 
 ---
 
-<img src="https://www.novell.com/developer/plugin-sdk/Action-flow.png" title="ActionFlow" alt="ActionFlow">
+<img src="https://cdn1.iconfinder.com/data/icons/artificial-intelligence-1-2/128/Algorithm-Program-Data-Flow-Hierarchy-Developing-512.png" title="ActionFlow" alt="ActionFlow">
 
 ---
+
+## Action flow project structure
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project 
+	name="test project" 
+	description="testings ....">
+	
+	<action 
+		type="wait" 
+		name="wait for 100 milliseconds "
+		desc="Slow down the process for millions of milliseconds"
+
+		duration_ms="100" 
+	 />
+
+	<action
+		 type="showdialog"
+		 name="notify"
+		 desc="notify about result"  
+		 message="result"
+		 messagetype="info"
+	 />
+
+</project>
+```
+
+---
+
+## Example running actionflow file
+
+(set action_flow.exe default app for .af files)
+
+or run
+
+```bash
+
+action_flow.exe testing_project_file.af
+
+```
 
 ## Available actions
 
