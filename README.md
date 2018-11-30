@@ -14,6 +14,8 @@
 
 ## Action flow project structure
 
+> Create action_flow project file and save it as **.af** file 
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project 
@@ -53,7 +55,7 @@
 
 or run
 
-```bash
+```console
 
 action_flow.exe testing_project_file.af
 
