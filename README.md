@@ -1,3 +1,6 @@
+---
+
+![](action_flow_image.png)
 
 ---
 
@@ -6,10 +9,6 @@
 > process-executor 
 
 > file operation manager
-
----
-
-<img src="action_flow_image.png" title="ActionFlow" alt="ActionFlow" >
 
 ---
 
@@ -42,7 +41,7 @@
 	 	.
 	 	.
 	 />
-	 
+
 </project>
 ```
 
