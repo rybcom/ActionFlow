@@ -19,7 +19,7 @@
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project 
-	name="test project" 
+	name="testing project aka lala je smed" 
 	description="testings ....">
 	
 	<action 
@@ -30,6 +30,24 @@
 		duration_ms="100" 
 	 />
 
+	<action 
+		type="copyfolder"
+		 name="copy source to dest"
+		 desc=""  
+
+		 source="||mroot||\temp\source"
+		 destination="||mroot||\temp\dest"
+		 copy_pattern="*"
+	/>
+
+	<action
+		 type="execute"
+		 name="ditto cliboard manager "
+		 desc="start ditto"  
+		 filename="||programs||\ditto\Ditto.exe"
+		 params=""
+	/>
+
 	<action
 		 type="showdialog"
 		 name="notify"
@@ -37,6 +55,7 @@
 		 message="result"
 		 messagetype="info"
 	 />
+
 
 	 < other actions 
 	 	.
