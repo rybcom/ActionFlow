@@ -1,11 +1,16 @@
-<img src="https://www.novell.com/developer/plugin-sdk/Action-flow.png" title="ActionFlow" alt="ActionFlow">
 
+
+---
 
 # ActionFlow
 
 > process-executor 
 
 > file operation manager
+
+---
+
+<img src="https://www.novell.com/developer/plugin-sdk/Action-flow.png" title="ActionFlow" alt="ActionFlow">
 
 ---
 
@@ -22,99 +27,105 @@
 
 ---
 
-
-## wait
+### wait
 
 ```xml
-
 <action
-		type="wait" 
-		name=""
-	
-		desc="Slow down the process for millions of milliseconds"
-		duration_ms="" 
-/>
+	type="wait" 
+	name=""
 
+	desc="Slow down the process for millions of milliseconds"
+	duration_ms="" 
+/>
 ```
 
 ### execute
 
+```xml
 <action
-		type="execute" 
-		name=""
-		desc="Starting the process with the given parameters"
+	type="execute" 
+	name=""
+	desc="Starting the process with the given parameters"
 
-		filename=""
-		params="" 
+	filename=""
+	params="" 
 />		 
+```
 
+### copyfolder
 
-## copyfolder
-
+```xml
 <action 
-		type="copyfolder" 
-		name=""
-		desc="recursively copying a directory with subdirectories and files that complete the copy pattern"
+	type="copyfolder" 
+	name=""
+	desc="recursively copying a directory with subdirectories and files that complete the copy pattern"
 
-		source=""
-		destination="" 
-		copy_filepattern="(.)" 
-		copy_dirpattern="(.)" 
+	source=""
+	destination="" 
+	copy_filepattern="(.)" 
+	copy_dirpattern="(.)" 
 />
+```
+### copyfile
 
-## copyfile
-
+```xml
 <action 
-		type="copyfile" 
-		name=""
-		desc="Copy the file"
+	type="copyfile" 
+	name=""
+	desc="Copy the file"
 
-		source=""
-		destination="" 
+	source=""
+	destination="" 
 />	
-## deletefiles
+```
+### deletefiles
 
+```xml
 <action 
-		type="deletefiles" 
-		name=""
-		desc="Deleting files from the specified directory that complete the delete pattern"
+	type="deletefiles" 
+	name=""
+	desc="Deleting files from the specified directory that complete the delete pattern"
 
-		source=""
-		delete_filepattern="" 
-		recursive="true" 
+	source=""
+	delete_filepattern="" 
+	recursive="true" 
 />	
+```
+### deletefolders
 
-## deletefolders
-
+```xml
 <action 
-		type="deletefolders" 
-		name=""
-		desc="Delete folders"
+	type="deletefolders" 
+	name=""
+	desc="Delete folders"
 
-		source=""
-		delete_folderpattern="" 
+	source=""
+	delete_folderpattern="" 
 />		 
+```
+### zipfolder
 
-## zipfolder
-
+```xml
 <action
-		type="zipfolder" 
-		name=""
-		desc="Create a zip archive from the selected folder to the specified target file"
+	type="zipfolder" 
+	name=""
+	desc="Create a zip archive from the selected folder to the specified target file"
 
-		source=""
-		zipfile="" 
+	source=""
+	zipfile="" 
 />		 
+```
+### showdialog
 
-## showdialog
-
+```xml
 <action 
-		type="showdialog" 
-		name=""
-		desc="Show dialog with message"
+	type="showdialog" 
+	name=""
+	desc="Show dialog with message"
 
-		message=""
-		messagetype="info" 
+	message=""
+	messagetype="info" 
 />		
+```
 
 ---
