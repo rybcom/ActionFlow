@@ -1,15 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using commandlib;
+using System.Linq;
 
 namespace project_manager
 {
     public class Project
     {
+        #region ascii_texts
+
+        const string project_title = @"
+ ██╗ ██╗      █████╗  ██████╗████████╗██╗ ██████╗ ███╗   ██╗    ███████╗██╗      ██████╗ ██╗    ██╗     ██╗ ██╗ 
+████████╗    ██╔══██╗██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║    ██╔════╝██║     ██╔═══██╗██║    ██║    ████████╗
+╚██╔═██╔╝    ███████║██║        ██║   ██║██║   ██║██╔██╗ ██║    █████╗  ██║     ██║   ██║██║ █╗ ██║    ╚██╔═██╔╝
+████████╗    ██╔══██║██║        ██║   ██║██║   ██║██║╚██╗██║    ██╔══╝  ██║     ██║   ██║██║███╗██║    ████████╗
+╚██╔═██╔╝    ██║  ██║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║    ██║     ███████╗╚██████╔╝╚███╔███╔╝    ╚██╔═██╔╝
+ ╚═╝ ╚═╝     ╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝      ╚═╝ ╚═╝ 
+";
+
+        const string end_title = @"
+ ██╗ ██╗     ███████╗██╗      ██████╗ ██╗    ██╗    ███████╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██████╗      ██╗ ██╗ 
+████████╗    ██╔════╝██║     ██╔═══██╗██║    ██║    ██╔════╝██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██╔══██╗    ████████╗
+╚██╔═██╔╝    █████╗  ██║     ██║   ██║██║ █╗ ██║    █████╗  ██║██╔██╗ ██║██║███████╗███████║█████╗  ██║  ██║    ╚██╔═██╔╝
+████████╗    ██╔══╝  ██║     ██║   ██║██║███╗██║    ██╔══╝  ██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║  ██║    ████████╗
+╚██╔═██╔╝    ██║     ███████╗╚██████╔╝╚███╔███╔╝    ██║     ██║██║ ╚████║██║███████║██║  ██║███████╗██████╔╝    ╚██╔═██╔╝
+ ╚═╝ ╚═╝     ╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝     ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═════╝      ╚═╝ ╚═╝ 
+";
+
+        #endregion  
+
         #region property
 
         public string Name { get; set; }
-        public string Description{ get; set; }
+        public string Description { get; set; }
 
         #endregion
 
@@ -17,19 +40,21 @@ namespace project_manager
 
         public void Execute()
         {
-            LogConsole();
+            LogConsoleStart();
 
-            foreach (ActionBase action in _actionList)
+            foreach (ActionBase action in _actionList.Where(item => item.Enabled == true))
             {
                 action.DoAction();
             }
+
+            LogConsoleEnd();
         }
 
         public void LoadFromFile(string filePath)
         {
             _actionList = new List<ActionBase>();
 
-            ProjectParser parser = new ProjectParser(this,this._actionList);
+            ProjectParser parser = new ProjectParser(this, this._actionList);
             parser.ParseProjectFromFile(filePath);
         }
 
@@ -37,12 +62,21 @@ namespace project_manager
 
         #region private methods
 
-        private void LogConsole()
+        private void LogConsoleStart()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Project.project_title);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"Run project : {this.Name} \n" +
                 $"Description : {this.Description} ");
 
+            Console.ResetColor();
+        }
+
+        private void LogConsoleEnd()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Project.end_title);
             Console.ResetColor();
         }
 

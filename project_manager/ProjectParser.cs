@@ -35,6 +35,13 @@ namespace project_manager
 
                 string action_name = node.Attributes["name"].Value;
                 string action_desc = node.Attributes["desc"].Value;
+                bool action_enabled = true;
+
+                if (node.Attributes["enabled"]!=null)
+                {
+                    action_enabled = Convert.ToBoolean(node.Attributes["enabled"].Value);
+                }
+
                 ActionType action_type = (ActionType)Enum.Parse(typeof(ActionType), node.Attributes["type"].Value, true); ;
 
 
@@ -43,6 +50,7 @@ namespace project_manager
 
                 action.Type = action_type;
                 action.Name = action_name;
+                action.Enabled = action_enabled;
                 action.Description = action_desc;
 
                 this._actions.Add(action);
