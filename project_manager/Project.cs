@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using commandlib;
-using System.Linq;
 
 namespace project_manager
 {
@@ -42,9 +41,9 @@ namespace project_manager
         {
             LogConsoleStart();
 
-            foreach (ActionBase action in _actionList.Where(item => item.Enabled == true))
+            foreach (ActionBase action in _actionList)
             {
-                action.DoAction();
+                ProcessAction(action);
             }
 
             LogConsoleEnd();
@@ -77,6 +76,29 @@ namespace project_manager
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(Project.end_title);
+            Console.ResetColor();
+        }
+
+        private void ProcessAction(ActionBase action)
+        {
+            if (action.Enabled)
+            {
+                action.DoAction();
+            }
+            else
+            {
+                LogDisabledAction(action);
+            }
+        }
+
+        private void LogDisabledAction(ActionBase action)  
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.WriteLine($" \nAction Type [ {Enum.GetName(typeof(ActionType), action.Type)} ]" +
+                $" Name [ {this.Name} ] " +
+             $"Description [ {this.Description} ] is disabled" );
+
             Console.ResetColor();
         }
 
