@@ -27,10 +27,11 @@ namespace project_manager
             _mainProject.Name = jsonObject["project"]["name"].ToString();
             _mainProject.Description = jsonObject["project"]["desc"].ToString();
 
-            var tookenList = jsonObject["project"]["execution"].ToList<JToken>();
-            foreach (var item in tookenList)
+            var jsonExecution = jsonObject["project"]["execution"].ToObject<JObject>();
+
+            foreach (var property in jsonExecution.Properties())
             {
-                ParseToken(item);
+                ParseToken(property, this._actions);
             }
         }
 
@@ -44,28 +45,33 @@ namespace project_manager
             action.Enabled = enable ?? action.Enabled;
             action.Description = desc ?? action.Description;
         }
-        private void ParseToken(JToken item)
+        private void ParseToken(JProperty itemProperty,List<ActionBase> activeList)
         {
-            var actionType = (ActionType)Enum.Parse(typeof(ActionType), DenumberActionWord(item.Value<JProperty>().Name), true);
+            var actionType = (ActionType)Enum.Parse(typeof(ActionType), DenumberActionWord(itemProperty.Name), true);
 
-            var tokenType = item.Value<JProperty>().Value.Type;
-            if (tokenType == JTokenType.Object)
+            JToken value = itemProperty.Value;
+
+            if (value.Type == JTokenType.Object)
+
             {
-                var actionJson = item.Value<JProperty>().Value.ToObject<JObject>();
+
+                var actionJson = value.ToObject<JObject>();
 
                 ActionBase action = ParseObjectAction(actionJson, actionType);
                 action.Type = actionType;
                 SetBaseDataForAction(actionJson, action);
 
-                this._actions.Add(action);
+                activeList.Add(action);
+
             }
             else
             {
-                ActionBase action = ParseObjectAction_SHORT(item.Value<JProperty>(), actionType);
+
+                ActionBase action = ParseObjectAction(itemProperty, actionType);
 
                 action.Type = actionType;
 
-                this._actions.Add(action);
+                activeList.Add(action);
             }
 
 
@@ -128,7 +134,7 @@ namespace project_manager
 
         }
 
-        private ActionBase ParseObjectAction_SHORT(JProperty node, ActionType action_type)
+        private ActionBase ParseObjectAction(JProperty node, ActionType action_type)
         {
             switch (action_type)
             {
@@ -157,6 +163,24 @@ namespace project_manager
 
             switch (action_type)
             {
+                case ActionType.ControlFlow:
+                    var condition = (node["condition"].ToString());
+
+                    ControlFlow<DialogCondition, DialogResultYESNO> flow = new ControlFlow<DialogCondition, DialogResultYESNO>();
+                    foreach(var result in Enum.GetValues(typeof(DialogResultYESNO)))
+                    {
+                        var resultPath = (node[result.ToString().ToLower()]);
+
+                        var resultPathActions = new List<ActionBase>();
+                        flow.ActionControlFlowList[(DialogResultYESNO)result] = resultPathActions;
+                        
+                        foreach(var property in resultPath.ToObject<JObject>().Properties())
+                        {
+                            ParseToken(property, resultPathActions);
+                        }
+                    }
+                    return flow;
+
                 case ActionType.Wait:
                     int waittime = (node["duration_ms"].Value<Int32>());
 

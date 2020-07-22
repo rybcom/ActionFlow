@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionBase.cs" />
+    <Compile Include="ControlFlow.cs" />
     <Compile Include="CopyFile.cs" />
     <Compile Include="CopyFolder.cs" />
     <Compile Include="DeleteFiles.cs" />
