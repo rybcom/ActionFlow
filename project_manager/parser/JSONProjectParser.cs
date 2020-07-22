@@ -112,6 +112,11 @@ namespace project_manager
 
         private string PreprocessJsonFile(string text)
         {
+            if (text.Trim().StartsWith("{") == false)
+            {
+                text = "{\n" + text + "}\n";
+            }
+
             string[] lines = text.Split('\n');
 
             for (int i = 0; i < lines.Count(); i++)
@@ -128,7 +133,7 @@ namespace project_manager
             switch (action_type)
             {
                 case ActionType.Wait:
-                    int waittime = Convert.ToInt32( (node.Value.ToString()));
+                    int waittime = Convert.ToInt32((node.Value.ToString()));
 
                     WaitAction wait = new WaitAction();
                     wait.Milliseconds = waittime;
@@ -141,7 +146,7 @@ namespace project_manager
                     return showDialog;
 
                 case ActionType.CopyFolder:
-                    throw new NotSupportedException(); 
+                    throw new NotSupportedException();
             }
 
             return null;
