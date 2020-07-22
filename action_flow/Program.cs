@@ -18,7 +18,7 @@ namespace action_flow
 
                 Project project = new Project();
 
-                project.LoadFromFile(project_path,Project.FileType.Xaml);
+                project.LoadFromFile(project_path,Project.FileType.Json);
 
                 project.Execute();
             }

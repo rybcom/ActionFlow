@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>project_manager</RootNamespace>
     <AssemblyName>project_manager</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,8 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Project.cs" />
-    <Compile Include="XMLProjectParser.cs" />
-    <Compile Include="ProjectParser.cs" />
+    <Compile Include="parser\JSONProjectParser.cs" />
+    <Compile Include="parser\XMLProjectParser.cs" />
+    <Compile Include="parser\ProjectParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,5 +63,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

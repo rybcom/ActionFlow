@@ -14,9 +14,9 @@ namespace commandlib
 
         public string Destination { get; set; }
 
-        public string CopyFilePattern { get; set; }
+        public string CopyFilePattern { get; set; } = "(.)";
 
-        public string CopyDirPattern { get; set; }
+        public string CopyDirPattern { get; set; } = "(.)";
 
         #endregion
 

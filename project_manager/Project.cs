@@ -61,7 +61,7 @@ namespace project_manager
             ProjectParser parser = null;
             if (fileType == FileType.Json)
             {
-
+                parser = new JSONProjectParser(this, this._actionList);
             }
             else if(fileType==FileType.Xaml)
             {
