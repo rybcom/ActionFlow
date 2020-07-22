@@ -50,7 +50,6 @@ namespace commandlib
 
         #region members
 
-
         private T result = default;
 
         #endregion
@@ -59,13 +58,14 @@ namespace commandlib
 
         private void LogConsoleStart()
         {
-            Console.WriteLine($"\active path for {result}  starts ");
+            Console.WriteLine($"{Name} - active path starts : {result} ");
         }
 
         private void LogConsoleEnd()
         {
-            Console.WriteLine($"\active path for {result}  ends ");
+            Console.WriteLine($"{Name} active path for ends ");
         }
+
         #endregion
     }
 
