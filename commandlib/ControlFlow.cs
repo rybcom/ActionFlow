@@ -78,9 +78,10 @@ namespace commandlib
 
     public class DialogCondition : BranchCondition<DialogResultYESNO>
     {
+        public string DialogText { get; set; } = "Yes or Not ?";
         public override DialogResultYESNO EvalueteCondition()
         {
-            if( MessageBox.Show("asdf", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if( MessageBox.Show(DialogText, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
                 return DialogResultYESNO.Yes;
             }

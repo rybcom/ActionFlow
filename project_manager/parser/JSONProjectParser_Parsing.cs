@@ -41,8 +41,12 @@ namespace project_manager
 
         private ControlFlow<DialogCondition, DialogResultYESNO> ParseDialogControlFlow(JObject node)
         {
-
+            
             ControlFlow<DialogCondition, DialogResultYESNO> flow = new ControlFlow<DialogCondition, DialogResultYESNO>();
+
+            flow.Condition.DialogText = node.ContainsKey("dialogtext") ? 
+                node["dialogtext"].ToString() : flow.Condition.DialogText;
+
             foreach (var result in Enum.GetValues(typeof(DialogResultYESNO)))
             {
                 var resultPath = (node[result.ToString().ToLower()]);
