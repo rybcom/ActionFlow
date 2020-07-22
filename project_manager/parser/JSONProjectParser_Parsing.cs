@@ -18,6 +18,17 @@ namespace project_manager
         {
             switch (action_type)
             {
+                case ActionType.Execute:
+
+                    string filename = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+
+                    ExecuteProcess executeAction = new ExecuteProcess();
+                    executeAction.FileName = filename;
+                    executeAction.Params = "";
+                    executeAction.OnlyIfNotRunning = false;
+
+                    return executeAction;
+
                 case ActionType.Wait:
                     int waittime = Convert.ToInt32((node.Value.ToString()));
 
@@ -77,8 +88,21 @@ namespace project_manager
                         return ParseDialogControlFlow(node);
                     }
 
-
                     return null;
+
+                case ActionType.Execute:
+
+                    string filename = MRoot.Instance.SubstituteEnviroVariables(node["filename"].ToString());
+                    string paramxs = node.ContainsKey("params") ? MRoot.Instance.SubstituteEnviroVariables(node["params"].ToString()) : "";
+                    bool onlyIfnotRunning = node.ContainsKey("onlyIfNotRunning") ? node["params"].Value<bool>() : false;
+
+                    ExecuteProcess executeAction = new ExecuteProcess();
+                    executeAction.FileName = filename;
+                    executeAction.Params = paramxs;
+                    executeAction.OnlyIfNotRunning = onlyIfnotRunning;
+
+                    return executeAction;
+
 
                 case ActionType.Wait:
                     int waittime = (node["duration_ms"].Value<Int32>());
