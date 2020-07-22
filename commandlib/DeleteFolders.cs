@@ -22,7 +22,18 @@ namespace commandlib
 
             base.DoAction();
 
-            DeleteAction(SourceFolder, DeletePattern, true, printCallback);
+            DirectoryInfo dir = new DirectoryInfo(SourceFolder);
+            if (!dir.Exists)
+            {
+                return;
+            }
+
+            var dirs = dir.GetDirectories();
+
+            foreach (DirectoryInfo subdir in dirs)
+            {
+                DeleteAction(subdir.FullName, DeletePattern,  printCallback);
+            }
         }
 
         #endregion
@@ -32,40 +43,19 @@ namespace commandlib
         private static void DeleteAction(
             string sourceDirName,
             string deletePattern,
-            bool delteInSubfolder = true,
-            Action<string> copyCallback = null)
+            Action<string> deleteCallback = null)
         {
-            // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
             if (!dir.Exists)
             {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
+                return;   
             }
 
             if (Regex.IsMatch(dir.FullName, deletePattern))
             {
-                copyCallback(dir.FullName);
+                deleteCallback(dir.FullName);
                 dir.Delete(true);
-                return;
-            }
-
-
-
-
-
-
-            var dirs = dir.GetDirectories();
-
-            // If copying subdirectories, copy them and their contents to new location.
-            if (delteInSubfolder)
-            {
-                foreach (DirectoryInfo subdir in dirs)
-                {
-                    DeleteAction(subdir.FullName, deletePattern, delteInSubfolder, copyCallback);
-                }
             }
 
         }

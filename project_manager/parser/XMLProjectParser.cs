@@ -114,7 +114,7 @@ namespace project_manager
                 case ActionType.DeleteFiles:
 
                     string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    string delete_pattern = node.Attributes["delete_filepattern"].Value;
+                    string delete_pattern = node.Attributes["pattern"].Value;
                     bool recursive_delete = Convert.ToBoolean(node.Attributes["recursive"].Value);
 
                     DeleteFiles delteFiles= new DeleteFiles();
@@ -126,7 +126,7 @@ namespace project_manager
                 case ActionType.DeleteFolders:
 
                     sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    delete_pattern = node.Attributes["delete_folderpattern"].Value;
+                    delete_pattern = node.Attributes["pattern"].Value;
 
                     DeleteFolders deleteFolders = new DeleteFolders();
                     deleteFolders.SourceFolder = sourceFolder;

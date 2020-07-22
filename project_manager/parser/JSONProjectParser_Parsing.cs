@@ -43,7 +43,39 @@ namespace project_manager
                     return showDialog;
 
                 case ActionType.CopyFolder:
-                    throw new NotSupportedException();
+
+                    throw new NotSupportedException("Simple CopyFolder is not allowed");
+
+                case ActionType.CopyFile:
+
+                    throw new NotSupportedException("Simple CopyFile is not allowed");
+
+                case ActionType.DeleteFiles:
+                    {
+                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                        string delete_pattern = "(.)";
+                        bool recursive_delete = false;
+
+                        DeleteFiles delteFiles = new DeleteFiles();
+                        delteFiles.SourceFolder = sourceFolder;
+                        delteFiles.DeletePattern = delete_pattern;
+                        delteFiles.RecursiveDelete = recursive_delete;
+                        return delteFiles;
+                    }
+
+                case ActionType.DeleteFolders:
+                    {
+
+                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                        string delete_pattern = "(.)";
+
+                        DeleteFolders deleteFolders = new DeleteFolders();
+                        deleteFolders.SourceFolder = sourceFolder;
+                        deleteFolders.DeletePattern = delete_pattern;
+                        return deleteFolders;
+                    }
+
+
             }
 
             return null;
@@ -52,10 +84,10 @@ namespace project_manager
 
         private ControlFlow<DialogCondition, DialogResultYESNO> ParseDialogControlFlow(JObject node)
         {
-            
+
             ControlFlow<DialogCondition, DialogResultYESNO> flow = new ControlFlow<DialogCondition, DialogResultYESNO>();
 
-            flow.Condition.DialogText = node.ContainsKey("dialogtext") ? 
+            flow.Condition.DialogText = node.ContainsKey("dialogtext") ?
                 node["dialogtext"].ToString() : flow.Condition.DialogText;
 
             foreach (var result in Enum.GetValues(typeof(DialogResultYESNO)))
@@ -135,6 +167,44 @@ namespace project_manager
                     copyFolder.CopyDirPattern = dir_pattern ?? copyFolder.CopyDirPattern;
 
                     return copyFolder;
+
+                case ActionType.CopyFile:
+
+                    source = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                    destination = MRoot.Instance.SubstituteEnviroVariables(node["destination"].ToString());
+
+                    CopyFile copyFile = new CopyFile();
+                    copyFile.Source = source;
+                    copyFile.Destination = destination;
+                    return copyFile;
+
+                case ActionType.DeleteFiles:
+                    {
+
+                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                        string delete_pattern = node.ContainsKey("pattern") ? node["pattern"].ToString() : "(.)";
+                        bool recursive_delete = node.ContainsKey("recursive") ? node["recursive"].Value<bool>() : false;
+
+                        DeleteFiles delteFiles = new DeleteFiles();
+                        delteFiles.SourceFolder = sourceFolder;
+                        delteFiles.DeletePattern = delete_pattern;
+                        delteFiles.RecursiveDelete = recursive_delete;
+                        return delteFiles;
+                    }
+
+                case ActionType.DeleteFolders:
+                    {
+
+                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                        string delete_pattern = node.ContainsKey("pattern") ? node["pattern"].ToString() : "(.)";
+
+                        DeleteFolders deleteFolders = new DeleteFolders();
+                        deleteFolders.SourceFolder = sourceFolder;
+                        deleteFolders.DeletePattern = delete_pattern;
+                        return deleteFolders;
+                    }
+
+
             }
 
             return null;
