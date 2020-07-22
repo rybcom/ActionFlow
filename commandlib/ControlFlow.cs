@@ -32,6 +32,9 @@ namespace commandlib
             result = Condition.EvalueteCondition();
             var activeFlowPath = ActionControlFlowList[result];
 
+
+            LogConsoleStart();
+
             foreach (ActionBase action in activeFlowPath)
             {
                 if (action.Enabled)
@@ -39,6 +42,8 @@ namespace commandlib
                     action.DoAction();
                 }
             }
+
+            LogConsoleEnd();
         }
 
         #endregion
@@ -52,11 +57,15 @@ namespace commandlib
 
         #region private methods
 
-        private void LogConsole()
+        private void LogConsoleStart()
         {
-            Console.WriteLine($"\tcondition result is {result} ");
+            Console.WriteLine($"\active path for {result}  starts ");
         }
 
+        private void LogConsoleEnd()
+        {
+            Console.WriteLine($"\active path for {result}  ends ");
+        }
         #endregion
     }
 
