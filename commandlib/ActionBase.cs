@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace commandlib
 {
@@ -13,21 +14,21 @@ namespace commandlib
         ZipFolder,
         ShowDialog
     }
-    
+
     public abstract class ActionBase
     {
         #region property
 
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-        public bool   Enabled { get; set; } = true;
+        public bool Enabled { get; set; } = true;
         public ActionType Type { get; set; }
 
         #endregion
 
         #region to override
 
-        
+
 
         public virtual void DoAction()
         {
@@ -44,10 +45,21 @@ namespace commandlib
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Console.WriteLine($" \nExecute Type [ {Enum.GetName(typeof(ActionType), Type)} ]" +
-                $" Name [ {this.Name} ] " +
-             $"Description [ {this.Description} ]");
+            var header = $" \nExecute Type [ {Enum.GetName(typeof(ActionType), Type)} ] ";
 
+            var name = $" Name[ { this.Name} ]";
+            var desc = $" Desc[ { this.Description} ]";
+
+            if (String.IsNullOrEmpty(this.Name) == false)
+            {
+                header += name;
+            }
+            if (String.IsNullOrEmpty(this.Description) == false)
+            {
+                header += desc;
+            }
+
+            Console.WriteLine(header);
             Console.ResetColor();
         }
 
