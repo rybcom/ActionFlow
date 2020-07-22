@@ -49,11 +49,25 @@ namespace project_manager
             LogConsoleEnd();
         }
 
-        public void LoadFromFile(string filePath)
+        public enum FileType
+        {
+            Json,
+            Xaml
+        }
+        public void LoadFromFile(string filePath,FileType fileType)
         {
             _actionList = new List<ActionBase>();
 
-            ProjectParser parser = new ProjectParser(this, this._actionList);
+            ProjectParser parser = null;
+            if (fileType == FileType.Json)
+            {
+
+            }
+            else if(fileType==FileType.Xaml)
+            {
+                parser = new XMLProjectParser(this, this._actionList);
+            }
+
             parser.ParseProjectFromFile(filePath);
         }
 
