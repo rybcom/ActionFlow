@@ -34,6 +34,16 @@ namespace project_manager
             }
         }
 
+        private void SetBaseDataForAction(JObject actionJson, ActionBase action)
+        {
+            string name = actionJson.ContainsKey("name") ? actionJson["name"].ToString() : null;
+            string desc = actionJson.ContainsKey("desc") ? actionJson["desc"].ToString() : null;
+            bool? enable = actionJson.ContainsKey("enabled") ? (bool?)(Convert.ToBoolean(actionJson["enabled"].ToString())) : null;
+
+            action.Name = name ?? action.Name;
+            action.Enabled = enable ?? action.Enabled;
+            action.Description = desc ?? action.Description;
+        }
         private void ParseToken(JToken item)
         {
             var actionType = (ActionType)Enum.Parse(typeof(ActionType), DenumberActionWord(item.Value<JProperty>().Name), true);
@@ -43,18 +53,9 @@ namespace project_manager
             {
                 var actionJson = item.Value<JProperty>().Value.ToObject<JObject>();
 
-                string name = actionJson.ContainsKey("name") ? actionJson["name"].ToString() : null;
-                string desc = actionJson.ContainsKey("desc") ? actionJson["desc"].ToString() : null;
-                bool? enable = actionJson.ContainsKey("enabled") ? (bool?)(Convert.ToBoolean(actionJson["desc"])) : null;
-
-
-
                 ActionBase action = ParseObjectAction(actionJson, actionType);
-
                 action.Type = actionType;
-                action.Name = name ?? action.Name;
-                action.Enabled = enable ?? action.Enabled;
-                action.Description = desc ?? action.Description;
+                SetBaseDataForAction(actionJson, action);
 
                 this._actions.Add(action);
             }

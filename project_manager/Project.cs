@@ -110,8 +110,8 @@ namespace project_manager
             Console.ForegroundColor = ConsoleColor.Red;
 
             Console.WriteLine($" \nAction Type [ {Enum.GetName(typeof(ActionType), action.Type)} ]" +
-                $" Name [ {this.Name} ] " +
-             $"Description [ {this.Description} ] is disabled" );
+                $" Name [ {action.Name} ] " +
+             $"Description [ {action.Description} ] is disabled" );
 
             Console.ResetColor();
         }
