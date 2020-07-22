@@ -1,0 +1,108 @@
+project:
+{
+    name:'emil tes',
+    desc:'skuska test',
+
+    execution:
+    {
+    	controlflow:
+        {
+        	enabled:'false',
+            condition:'dialog',
+            dialogtext:'moznost 1 ?',
+            name:'copy control flow',
+            
+            yes:
+            {
+            	copyfile:
+            	{
+            		source:'||mroot||/temp/kozka.png',
+            		destination:'||mroot||/temp/kozka_nova.png',
+            	}
+            },
+            
+            no:
+            {
+			  copyfolder:
+	          {
+		            name:'michal',
+		            enabled:'false',
+		            source:'||mroot||/test',
+		            destination:'||mroot||/temp/xxx'
+	          },
+            }    
+        },
+      
+        controlflow:
+        {
+        	enabled:'false',
+            condition:'dialog',
+            dialogtext:'single file ?',
+            name:'copy control flow',
+            
+            yes:
+            {
+            	deletefiles:'||mroot||/temp/tx'
+            },
+            
+            no:
+            {
+				deletefiles:
+				{
+					source:'||mroot||/temp/tx',
+					recursive:"true",
+				}
+            }    
+        },
+      
+        controlflow:
+        {
+        	enabled:'true',
+            condition:'dialog',
+            dialogtext:'delete folders  ?',
+            name:'copy control flow',
+            
+            yes:
+            {
+            	deletefolders:'||mroot||/temp/tx'
+            },
+            
+            no:
+            {
+				deletefolders:
+				{
+					source:'||mroot||/temp/tx',
+					pattern:'xxx',
+				}
+            }    
+        },
+      
+
+
+        controlflow:
+        {
+        	enabled:'false',
+            condition:'dialog',
+            dialogtext:'ideme domov ?',
+            name:'test dilaog control flow',
+            
+            yes:
+            {
+                showdialog:'zvolil si si moznost ano',
+                wait:'1000',
+
+                execute:
+                {
+					 filename:'||defaultbrowser||',
+					 params:'www.aktuality.sk'
+				},
+            },
+            
+            no:
+            {
+                showdialog:'zvolil si si nie',
+				execute:'||bin||/daily_remarks/daily_remarks.exe',
+            }    
+        },
+    }
+}

@@ -25,7 +25,7 @@ namespace project_manager
                     ExecuteProcess executeAction = new ExecuteProcess();
                     executeAction.FileName = filename;
                     executeAction.Params = "";
-                    executeAction.OnlyIfNotRunning = false;
+                    executeAction.OnlyIfNotRunning = true;
 
                     return executeAction;
 
@@ -126,7 +126,7 @@ namespace project_manager
 
                     string filename = MRoot.Instance.SubstituteEnviroVariables(node["filename"].ToString());
                     string paramxs = node.ContainsKey("params") ? MRoot.Instance.SubstituteEnviroVariables(node["params"].ToString()) : "";
-                    bool onlyIfnotRunning = node.ContainsKey("onlyIfNotRunning") ? node["params"].Value<bool>() : false;
+                    bool onlyIfnotRunning = node.ContainsKey("onlyIfNotRunning") ? node["params"].Value<bool>() : true;
 
                     ExecuteProcess executeAction = new ExecuteProcess();
                     executeAction.FileName = filename;
