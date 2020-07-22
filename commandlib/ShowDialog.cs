@@ -16,7 +16,7 @@ namespace commandlib
 
         public string Message { get; set; }
 
-        public Type MessageType{ get; set; }
+        public Type MessageType { get; set; } = Type.Info;
 
         #endregion
 

@@ -50,7 +50,7 @@ namespace project_manager
 
 
                 ActionBase action = ParseObjectAction(actionJson, actionType);
-                
+
                 action.Type = actionType;
                 action.Name = name ?? action.Name;
                 action.Enabled = enable ?? action.Enabled;
@@ -60,7 +60,11 @@ namespace project_manager
             }
             else
             {
+                ActionBase action = ParseObjectAction_SHORT(item.Value<JProperty>(), actionType);
 
+                action.Type = actionType;
+
+                this._actions.Add(action);
             }
 
 
@@ -118,6 +122,30 @@ namespace project_manager
 
         }
 
+        private ActionBase ParseObjectAction_SHORT(JProperty node, ActionType action_type)
+        {
+            switch (action_type)
+            {
+                case ActionType.Wait:
+                    int waittime = Convert.ToInt32( (node.Value.ToString()));
+
+                    WaitAction wait = new WaitAction();
+                    wait.Milliseconds = waittime;
+                    return wait;
+
+                case ActionType.ShowDialog:
+
+                    ShowDialog showDialog = new ShowDialog();
+                    showDialog.Message = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                    return showDialog;
+
+                case ActionType.CopyFolder:
+                    throw new NotSupportedException(); 
+            }
+
+            return null;
+        }
+
         private ActionBase ParseObjectAction(JObject node, ActionType action_type)
         {
 
@@ -134,8 +162,10 @@ namespace project_manager
 
                     ShowDialog showDialog = new ShowDialog();
                     showDialog.Message = MRoot.Instance.SubstituteEnviroVariables(node["message"].ToString());
-                    showDialog.MessageType = (ShowDialog.Type)Enum.Parse(typeof(ShowDialog.Type), node["messagetype"].ToString(), true);
-
+                    if (node.ContainsKey("messagetype"))
+                    {
+                        showDialog.MessageType = (ShowDialog.Type)Enum.Parse(typeof(ShowDialog.Type), node["messagetype"].ToString(), true);
+                    }
                     return showDialog;
 
                 case ActionType.CopyFolder:
