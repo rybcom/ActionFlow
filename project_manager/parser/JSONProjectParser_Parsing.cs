@@ -72,6 +72,15 @@ namespace project_manager
                         return delteFiles;
                     }
 
+                case ActionType.DeleteFolder:
+                    {
+                        string dirPath = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+
+                        DeleteFolder deleteFolder = new DeleteFolder();
+                        deleteFolder.FolderPath = dirPath;
+                        return deleteFolder;
+                    }
+
                 case ActionType.DeleteFolders:
                     {
 
@@ -211,6 +220,15 @@ namespace project_manager
                         delteFiles.DeletePattern = delete_pattern;
                         delteFiles.RecursiveDelete = recursive_delete;
                         return delteFiles;
+                    }
+
+                case ActionType.DeleteFolder:
+                    {
+                        string dirPath = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+
+                        DeleteFolder deleteFolder = new DeleteFolder();
+                        deleteFolder.FolderPath = dirPath;
+                        return deleteFolder;
                     }
 
                 case ActionType.DeleteFolders:
