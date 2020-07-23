@@ -50,6 +50,15 @@ namespace project_manager
 
                     throw new NotSupportedException("Simple CopyFile is not allowed");
 
+                case ActionType.DeleteFile:
+                    {
+                        string sourceFile = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+
+                        DeleteFile delteFiles = new DeleteFile();
+                        delteFiles.SourceFile = sourceFile;
+                        return delteFiles;
+                    }
+
                 case ActionType.DeleteFiles:
                     {
                         string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
@@ -75,6 +84,9 @@ namespace project_manager
                         return deleteFolders;
                     }
 
+                case ActionType.ZipFolder:
+
+                    throw new NotSupportedException("Simple ZipFolder is not allowed");
 
             }
 
@@ -178,6 +190,15 @@ namespace project_manager
                     copyFile.Destination = destination;
                     return copyFile;
 
+                case ActionType.DeleteFile:
+                    {
+                        string sourceFile = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+
+                        DeleteFile delteFiles = new DeleteFile();
+                        delteFiles.SourceFile = sourceFile;
+                        return delteFiles;
+                    }
+
                 case ActionType.DeleteFiles:
                     {
 
@@ -204,6 +225,17 @@ namespace project_manager
                         return deleteFolders;
                     }
 
+                case ActionType.ZipFolder:
+                    {
+
+                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                        string zipfile_destination = MRoot.Instance.SubstituteEnviroVariables(node["zipfile"].ToString());
+
+                        ZipFolder zipFolder = new ZipFolder();
+                        zipFolder.SourceFolder = sourceFolder;
+                        zipFolder.DestinationZip = zipfile_destination;
+                        return zipFolder;
+                    }
 
             }
 

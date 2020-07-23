@@ -38,38 +38,29 @@ namespace commandlib
             bool delteInSubfolder = true,
             Action<string> actionCallback = null)
         {
-            // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
             if (!dir.Exists)
             {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
+                Console.Error.WriteLine($"folder : {sourceDirName} not exists" );
+                return;
             }
-
-         
 
             if (dir.FullName.Split('\\').Length < 6)
             {
                 actionCallback(dir.FullName);
             }
 
-            // Get the files in the directory and copy them to the new location.
             var files = dir.GetFiles().Where(f => Regex.IsMatch(f.FullName, deletePattern));
 
             foreach (FileInfo file in files)
             {
-                //index++;
                 file.Delete();
             }
 
-            var dirs = dir.GetDirectories();
-
-            // If copying subdirectories, copy them and their contents to new location.
             if (delteInSubfolder)
             {
-                foreach (DirectoryInfo subdir in dirs)
+                foreach (DirectoryInfo subdir in dir.GetDirectories())
                 {
                     DeleteAction(subdir.FullName, deletePattern, delteInSubfolder, actionCallback);
                 }

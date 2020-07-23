@@ -44,25 +44,19 @@ namespace commandlib
             bool copySubDirs = true,
             Action<FileInfo> copyCallback = null)
         {
-            // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
             if (!dir.Exists)
             {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
+                Console.Error.WriteLine($"folder : {sourceDirName} not exists");
+                return;
             }
 
-            // If the destination directory doesn't exist, create it.
             if (!Directory.Exists(destDirName))
             {
                 Directory.CreateDirectory(destDirName);
             }
 
-
-
-            // Get the files in the directory and copy them to the new location.
             var files = dir.GetFiles().Where(f => Regex.IsMatch(f.FullName, copyFileRegexPattern));
 
             foreach (FileInfo file in files)
@@ -82,11 +76,11 @@ namespace commandlib
 
             }
 
-            var dirs = dir.GetDirectories().Where(d => Regex.IsMatch(d.FullName, copyDirRegexPattern)); ;
 
-            // If copying subdirectories, copy them and their contents to new location.
             if (copySubDirs)
             {
+                var dirs = dir.GetDirectories().Where(d => Regex.IsMatch(d.FullName, copyDirRegexPattern)); ;
+
                 foreach (DirectoryInfo subdir in dirs)
                 {
                     string destTempPath = Path.Combine(destDirName, subdir.Name);

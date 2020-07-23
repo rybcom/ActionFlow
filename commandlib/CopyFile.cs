@@ -37,9 +37,8 @@ namespace commandlib
 
             if (!sourceFile.Exists)
             {
-                throw new FileNotFoundException(
-                    "Source file does not exist or could not be found: "
-                    + sourcePath);
+                Console.Error.WriteLine($"file : {sourcePath} not exists");
+                return;
             }
 
             sourceFile.CopyTo(destinationPath, true);

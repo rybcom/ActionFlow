@@ -9,6 +9,7 @@ namespace commandlib
         Execute,
         CopyFolder,
         DeleteFiles,
+        DeleteFile,
         DeleteFolders,
         CopyFile,
         ZipFolder,

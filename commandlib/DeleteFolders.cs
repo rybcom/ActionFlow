@@ -25,6 +25,7 @@ namespace commandlib
             DirectoryInfo dir = new DirectoryInfo(SourceFolder);
             if (!dir.Exists)
             {
+                Console.Error.WriteLine($"folder : {SourceFolder} not exists");
                 return;
             }
 
@@ -49,7 +50,8 @@ namespace commandlib
 
             if (!dir.Exists)
             {
-                return;   
+                Console.Error.WriteLine($"folder : {sourceDirName} not exists");
+                return;
             }
 
             if (Regex.IsMatch(dir.FullName, deletePattern))

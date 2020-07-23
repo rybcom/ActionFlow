@@ -111,7 +111,8 @@ namespace project_manager
         {
             foreach (var actionTypeWord in ActionTypeWordList)
             {
-                text = text.Replace(actionTypeWord, $"{actionTypeWord}_{lineNumber}");
+                text = Regex.Replace(text,$@"\b{actionTypeWord}\b",
+                    $"{actionTypeWord}_{lineNumber}");
             }
 
             return text;

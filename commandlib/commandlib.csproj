@@ -49,6 +49,7 @@
     <Compile Include="ControlFlow.cs" />
     <Compile Include="CopyFile.cs" />
     <Compile Include="CopyFolder.cs" />
+    <Compile Include="DeleteFile.cs" />
     <Compile Include="DeleteFiles.cs" />
     <Compile Include="DeleteFolders.cs" />
     <Compile Include="ExecuteProcess.cs" />

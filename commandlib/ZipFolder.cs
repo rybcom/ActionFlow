@@ -25,6 +25,12 @@ namespace commandlib
                 File.Delete(DestinationZip);
             }
 
+            if(Directory.Exists(SourceFolder)==false)
+            {
+                Console.Error.WriteLine($"folder : {SourceFolder} not exists");
+                return;
+            }
+
             Console.WriteLine($"\tpacking folder [{this.SourceFolder}] to [{this.DestinationZip}]");
 
             ZipFile.CreateFromDirectory(SourceFolder, DestinationZip);
