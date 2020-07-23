@@ -82,7 +82,7 @@ namespace project_manager
         {
             string[] lines = text.Split('\n');
 
-            const string pattern = @"^.*:.*[^,]\s*$";
+            const string pattern = @"((^.*:.*[^,]\s*$)|}$)";
 
             for (int i = 0; i < lines.Count(); i++)
             {
@@ -91,6 +91,8 @@ namespace project_manager
                 {
                     lines[i] = lines[i] + ',';
                 }
+
+
             }
 
             return string.Join("\n", lines);
