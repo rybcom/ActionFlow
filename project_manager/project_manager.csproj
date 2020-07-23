@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="parser\JSONProjectParser_Preprocessing.cs" />
     <Compile Include="parser\JSONProjectParser_Parsing.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="parser\JSONProjectParser.cs" />

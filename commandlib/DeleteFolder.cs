@@ -31,6 +31,7 @@ namespace commandlib
             if(dirInfo.Exists == false)
             {
                 Console.Error.WriteLine($"folder : {ditPath} not exists");
+                return;
             }
             dirInfo.Delete(true);
         }
