@@ -44,13 +44,12 @@ namespace project_manager
 
         internal static string PreprocessJsonFile(string text)
         {
+            text = CompleteFogottenCommas(text);
             text = AddHeaderAndFooterBrackets(text);
             text = NumberAllPropertiesInText(text);
-
             return text;
 
         }
-
 
         #endregion
 
@@ -77,8 +76,27 @@ namespace project_manager
             }
 
             return string.Join("\n", lines);
+        }
+
+        static private string CompleteFogottenCommas(string text)
+        {
+            string[] lines = text.Split('\n');
+
+            const string pattern = @"^.*:.*[^,]\s*$";
+
+            for (int i = 0; i < lines.Count(); i++)
+            {
+                var match= Regex.Match(lines[i].Trim(), pattern,RegexOptions.Multiline );
+                if (match.Success)
+                {
+                    lines[i] = lines[i] + ',';
+                }
+            }
+
+            return string.Join("\n", lines);
 
         }
+
 
 
         #endregion
