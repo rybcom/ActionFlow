@@ -10,7 +10,7 @@
 
 * file operation manager
 
-* controling actoin flow by conditions
+* controling action flow by conditions
 
 ---
 
@@ -39,8 +39,8 @@ project:
             
             no:
             {
-            	execute:
-			    {
+				execute:
+				{
 					filename:'||defaultbrowser||',
 					params:'www.aktuality.sk'
 				},
