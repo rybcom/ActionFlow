@@ -6,9 +6,11 @@
 
 # ActionFlow
 
-> process-executor 
+* process-executor 
 
-> file operation manager
+* file operation manager
+
+* controling actoin flow by conditions
 
 ---
 
@@ -16,50 +18,54 @@
 
 > Create action_flow project file and save it as **.af** file 
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project 
-	name="testing project aka lala je smed" 
-	description="testings ....">
-	
-	<action 
-		type="wait" 
-		name="wait for 100 milliseconds "
-		desc="Slow down the process for millions of milliseconds"
-		
-		duration_ms="100" 
-	 />
+```javascript
+project:
+{
+    name:'template project',
+    desc:'project focuses on the correct using of commands ',
 
-	<action 
-		type="copyfolder"
-		 name="copy source to dest"
-		 desc=""  
+    execution:
+    {
+    	controlflow:
+        {
+            condition:'dialog',
+            dialogtext:'yer or no ?',
+            yes:
+            {
+            	wait:'1000',
+            	showdialog:'how are you doing ?'
+            	execute:'||bin||/daily_remarks/daily_remarks.exe',
+            },
+            
+            no:
+            {
+            	execute:
+			    {
+					filename:'||defaultbrowser||',
+					params:'www.aktuality.sk'
+				},
+            }    
+        },
 
-		 source="||mroot||\temp\source"
-		 destination="||mroot||\temp\dest"
-		 copy_filepattern="(.)" 
-		 copy_dirpattern="(.)" 
-	/>
+		deletefile:'||mroot||/temp/tttt/gear_watch/connect.bat',
 
-	<action
-		 type="execute"
-		 name="ditto cliboard manager "
-		 desc="start ditto"  
-		
-		 filename="||programs||\ditto\Ditto.exe"
-		 params=""
-	/>
+    	deletefiles:
+        {
+            source:'||mroot||/temp/tttt',
+            recursive:'false',
+            pattern:'^*(.bat)'
+        },
 
-	<action
-		 type="showdialog"
-		 name="notify"
-		 desc="notify about result"  
-		 
-		 message="result"
-		 messagetype="info"
-	 />
+        deletefiles:'||mroot||/temp/tttt',
 
-</project>
+		zipfolder:
+        {
+            source:'||mroot||/test',
+            zipfile:'||mroot||/temp/ahoij.zip'
+        },
+    }
+}
+
 ```
 
 ---
