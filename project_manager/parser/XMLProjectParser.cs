@@ -1,5 +1,5 @@
 ﻿using commandlib;
-using mroot;
+using mroot_lib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -69,8 +69,8 @@ namespace project_manager
 
                 case ActionType.Execute:
 
-                    string filename = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["filename"].Value);
-                    string paramxs = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["params"].Value);
+                    string filename = mroot.substitue_enviro_vars(node.Attributes["filename"].Value);
+                    string paramxs = mroot.substitue_enviro_vars(node.Attributes["params"].Value);
 
                     bool onlyIfnotRunning = true;
                     if (node.Attributes["onlyIfNotRunning"] != null)
@@ -88,8 +88,8 @@ namespace project_manager
 
                 case ActionType.CopyFolder:
 
-                    string source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    string destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
+                    string source = mroot.substitue_enviro_vars(node.Attributes["source"].Value);
+                    string destination = mroot.substitue_enviro_vars(node.Attributes["destination"].Value);
                     string file_pattern = node.Attributes["copy_filepattern"].Value;
                     string dir_pattern = node.Attributes["copy_dirpattern"].Value;
 
@@ -103,8 +103,8 @@ namespace project_manager
 
                 case ActionType.CopyFile:
 
-                    source = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["destination"].Value);
+                    source = mroot.substitue_enviro_vars(node.Attributes["source"].Value);
+                    destination = mroot.substitue_enviro_vars(node.Attributes["destination"].Value);
 
                     CopyFile copyFile = new CopyFile();
                     copyFile.Source = source;
@@ -113,7 +113,7 @@ namespace project_manager
 
                 case ActionType.DeleteFiles:
 
-                    string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    string sourceFolder = mroot.substitue_enviro_vars(node.Attributes["source"].Value);
                     string delete_pattern = node.Attributes["pattern"].Value;
                     bool recursive_delete = Convert.ToBoolean(node.Attributes["recursive"].Value);
 
@@ -125,7 +125,7 @@ namespace project_manager
 
                 case ActionType.DeleteFolders:
 
-                    sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
+                    sourceFolder = mroot.substitue_enviro_vars(node.Attributes["source"].Value);
                     delete_pattern = node.Attributes["pattern"].Value;
 
                     DeleteFolders deleteFolders = new DeleteFolders();
@@ -135,8 +135,8 @@ namespace project_manager
 
                 case ActionType.ZipFolder:
 
-                    sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["source"].Value);
-                    string zipfile_destination = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["zipfile"].Value);
+                    sourceFolder = mroot.substitue_enviro_vars(node.Attributes["source"].Value);
+                    string zipfile_destination = mroot.substitue_enviro_vars(node.Attributes["zipfile"].Value);
 
                     ZipFolder zipFolder = new ZipFolder();
                     zipFolder.SourceFolder = sourceFolder;
@@ -147,7 +147,7 @@ namespace project_manager
                 case ActionType.ShowDialog:
 
                     ShowDialog showDialog = new ShowDialog();
-                    showDialog.Message = MRoot.Instance.SubstituteEnviroVariables(node.Attributes["message"].Value);
+                    showDialog.Message = mroot.substitue_enviro_vars(node.Attributes["message"].Value);
                     showDialog.MessageType = (ShowDialog.Type)Enum.Parse(typeof(ShowDialog.Type), node.Attributes["messagetype"].Value, true);
 
                     return showDialog;

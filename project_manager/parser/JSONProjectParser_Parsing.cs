@@ -1,14 +1,8 @@
 ﻿using commandlib;
-using mroot;
+using mroot_lib;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Text.RegularExpressions;
-using System.Xml;
 
 namespace project_manager
 {
@@ -20,7 +14,7 @@ namespace project_manager
             {
                 case ActionType.Execute:
 
-                    string filename = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                    string filename = mroot.substitue_enviro_vars(node.Value.ToString());
 
                     ExecuteProcess executeAction = new ExecuteProcess();
                     executeAction.FileName = filename;
@@ -39,7 +33,7 @@ namespace project_manager
                 case ActionType.ShowDialog:
 
                     ShowDialog showDialog = new ShowDialog();
-                    showDialog.Message = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                    showDialog.Message = mroot.substitue_enviro_vars(node.Value.ToString());
                     return showDialog;
 
                 case ActionType.CopyFolder:
@@ -52,7 +46,7 @@ namespace project_manager
 
                 case ActionType.DeleteFile:
                     {
-                        string sourceFile = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                        string sourceFile = mroot.substitue_enviro_vars(node.Value.ToString());
 
                         DeleteFile delteFiles = new DeleteFile();
                         delteFiles.SourceFile = sourceFile;
@@ -61,7 +55,7 @@ namespace project_manager
 
                 case ActionType.DeleteFiles:
                     {
-                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                        string sourceFolder = mroot.substitue_enviro_vars(node.Value.ToString());
                         string delete_pattern = "(.)";
                         bool recursive_delete = false;
 
@@ -74,7 +68,7 @@ namespace project_manager
 
                 case ActionType.DeleteFolder:
                     {
-                        string dirPath = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                        string dirPath = mroot.substitue_enviro_vars(node.Value.ToString());
 
                         DeleteFolder deleteFolder = new DeleteFolder();
                         deleteFolder.FolderPath = dirPath;
@@ -84,7 +78,7 @@ namespace project_manager
                 case ActionType.DeleteFolders:
                     {
 
-                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node.Value.ToString());
+                        string sourceFolder = mroot.substitue_enviro_vars(node.Value.ToString());
                         string delete_pattern = "(.)";
 
                         DeleteFolders deleteFolders = new DeleteFolders();
@@ -145,8 +139,8 @@ namespace project_manager
 
                 case ActionType.Execute:
 
-                    string filename = MRoot.Instance.SubstituteEnviroVariables(node["filename"].ToString());
-                    string paramxs = node.ContainsKey("params") ? MRoot.Instance.SubstituteEnviroVariables(node["params"].ToString()) : "";
+                    string filename = mroot.substitue_enviro_vars(node["filename"].ToString());
+                    string paramxs = node.ContainsKey("params") ? mroot.substitue_enviro_vars(node["params"].ToString()) : "";
                     bool onlyIfnotRunning = node.ContainsKey("onlyIfNotRunning") ? node["params"].Value<bool>() : true;
 
                     ExecuteProcess executeAction = new ExecuteProcess();
@@ -167,7 +161,7 @@ namespace project_manager
                 case ActionType.ShowDialog:
 
                     ShowDialog showDialog = new ShowDialog();
-                    showDialog.Message = MRoot.Instance.SubstituteEnviroVariables(node["message"].ToString());
+                    showDialog.Message = mroot.substitue_enviro_vars(node["message"].ToString());
                     if (node.ContainsKey("messagetype"))
                     {
                         showDialog.MessageType = (ShowDialog.Type)Enum.Parse(typeof(ShowDialog.Type), node["messagetype"].ToString(), true);
@@ -176,8 +170,8 @@ namespace project_manager
 
                 case ActionType.CopyFolder:
 
-                    string source = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
-                    string destination = MRoot.Instance.SubstituteEnviroVariables(node["destination"].ToString());
+                    string source = mroot.substitue_enviro_vars(node["source"].ToString());
+                    string destination = mroot.substitue_enviro_vars(node["destination"].ToString());
                     string file_pattern = node.ContainsKey("desc") ? node["copy_filepattern"].ToString() : null;
                     string dir_pattern = node.ContainsKey("desc") ? node["copy_dirpattern"].ToString() : null;
 
@@ -191,8 +185,8 @@ namespace project_manager
 
                 case ActionType.CopyFile:
 
-                    source = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
-                    destination = MRoot.Instance.SubstituteEnviroVariables(node["destination"].ToString());
+                    source = mroot.substitue_enviro_vars(node["source"].ToString());
+                    destination = mroot.substitue_enviro_vars(node["destination"].ToString());
 
                     CopyFile copyFile = new CopyFile();
                     copyFile.Source = source;
@@ -201,7 +195,7 @@ namespace project_manager
 
                 case ActionType.DeleteFile:
                     {
-                        string sourceFile = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                        string sourceFile = mroot.substitue_enviro_vars(node["source"].ToString());
 
                         DeleteFile delteFiles = new DeleteFile();
                         delteFiles.SourceFile = sourceFile;
@@ -211,7 +205,7 @@ namespace project_manager
                 case ActionType.DeleteFiles:
                     {
 
-                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                        string sourceFolder = mroot.substitue_enviro_vars(node["source"].ToString());
                         string delete_pattern = node.ContainsKey("pattern") ? node["pattern"].ToString() : "(.)";
                         bool recursive_delete = node.ContainsKey("recursive") ? node["recursive"].Value<bool>() : false;
 
@@ -224,7 +218,7 @@ namespace project_manager
 
                 case ActionType.DeleteFolder:
                     {
-                        string dirPath = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                        string dirPath = mroot.substitue_enviro_vars(node["source"].ToString());
 
                         DeleteFolder deleteFolder = new DeleteFolder();
                         deleteFolder.FolderPath = dirPath;
@@ -234,7 +228,7 @@ namespace project_manager
                 case ActionType.DeleteFolders:
                     {
 
-                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
+                        string sourceFolder = mroot.substitue_enviro_vars(node["source"].ToString());
                         string delete_pattern = node.ContainsKey("pattern") ? node["pattern"].ToString() : "(.)";
 
                         DeleteFolders deleteFolders = new DeleteFolders();
@@ -246,8 +240,8 @@ namespace project_manager
                 case ActionType.ZipFolder:
                     {
 
-                        string sourceFolder = MRoot.Instance.SubstituteEnviroVariables(node["source"].ToString());
-                        string zipfile_destination = MRoot.Instance.SubstituteEnviroVariables(node["zipfile"].ToString());
+                        string sourceFolder = mroot.substitue_enviro_vars(node["source"].ToString());
+                        string zipfile_destination = mroot.substitue_enviro_vars(node["zipfile"].ToString());
 
                         ZipFolder zipFolder = new ZipFolder();
                         zipFolder.SourceFolder = sourceFolder;
