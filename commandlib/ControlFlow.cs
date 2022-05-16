@@ -50,7 +50,7 @@ namespace commandlib
 
         #region members
 
-        private T result = default;
+        private T result;
 
         #endregion
 
