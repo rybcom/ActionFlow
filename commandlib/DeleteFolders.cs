@@ -57,7 +57,7 @@ namespace commandlib
             if (Regex.IsMatch(dir.FullName, deletePattern))
             {
                 deleteCallback(dir.FullName);
-                dir.Delete(true);
+                dir.Delete(recursive:true);
             }
 
         }

@@ -32,8 +32,9 @@ namespace commandlib
             {
                 Console.Error.WriteLine($"file : {filePath} not exists");
             }
-            file.Delete();
 
+            Console.WriteLine($"delete file [{filePath}]");
+            file.Delete();
         }
 
         #endregion

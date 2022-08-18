@@ -25,15 +25,17 @@ namespace commandlib
 
         #region private methods
 
-        private static void DeleteAction(string ditPath)
+        private static void DeleteAction(string dirPath)
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(ditPath);
+            DirectoryInfo dirInfo = new DirectoryInfo(dirPath);
             if(dirInfo.Exists == false)
             {
-                Console.Error.WriteLine($"folder : {ditPath} not exists");
+                Console.Error.WriteLine($"folder : {dirPath} not exists");
                 return;
             }
-            dirInfo.Delete(true);
+
+            Console.WriteLine($"delete folder [{dirPath}]");
+            dirInfo.Delete(recursive:true);
         }
 
         #endregion

@@ -16,25 +16,27 @@ namespace project_manager
 
                     string filename = mroot.substitue_enviro_vars(node.Value.ToString());
 
-                    ExecuteProcess executeAction = new ExecuteProcess();
-                    executeAction.FileName = filename;
-                    executeAction.Params = "";
-                    executeAction.OnlyIfNotRunning = true;
-
-                    return executeAction;
+                    return new ExecuteProcess
+                    {
+                        FileName = filename,
+                        Params = "",
+                        OnlyIfNotRunning = true
+                    };
 
                 case ActionType.Wait:
                     int waittime = Convert.ToInt32((node.Value.ToString()));
 
-                    WaitAction wait = new WaitAction();
-                    wait.Milliseconds = waittime;
-                    return wait;
+                    return new WaitAction
+                    {
+                        Milliseconds = waittime
+                    };
 
                 case ActionType.ShowDialog:
 
-                    ShowDialog showDialog = new ShowDialog();
-                    showDialog.Message = mroot.substitue_enviro_vars(node.Value.ToString());
-                    return showDialog;
+                    return new ShowDialog
+                    {
+                        Message = mroot.substitue_enviro_vars(node.Value.ToString())
+                    };
 
                 case ActionType.CopyFolder:
 
@@ -48,9 +50,10 @@ namespace project_manager
                     {
                         string sourceFile = mroot.substitue_enviro_vars(node.Value.ToString());
 
-                        DeleteFile delteFiles = new DeleteFile();
-                        delteFiles.SourceFile = sourceFile;
-                        return delteFiles;
+                        return new DeleteFile
+                        {
+                            SourceFile = sourceFile
+                        };
                     }
 
                 case ActionType.DeleteFiles:
@@ -59,20 +62,22 @@ namespace project_manager
                         string delete_pattern = "(.)";
                         bool recursive_delete = false;
 
-                        DeleteFiles delteFiles = new DeleteFiles();
-                        delteFiles.SourceFolder = sourceFolder;
-                        delteFiles.DeletePattern = delete_pattern;
-                        delteFiles.RecursiveDelete = recursive_delete;
-                        return delteFiles;
+                        return new DeleteFiles
+                        {
+                            SourceFolder = sourceFolder,
+                            DeletePattern = delete_pattern,
+                            RecursiveDelete = recursive_delete
+                        };
                     }
 
                 case ActionType.DeleteFolder:
                     {
                         string dirPath = mroot.substitue_enviro_vars(node.Value.ToString());
 
-                        DeleteFolder deleteFolder = new DeleteFolder();
-                        deleteFolder.FolderPath = dirPath;
-                        return deleteFolder;
+                        return new DeleteFolder
+                        {
+                            FolderPath = dirPath
+                        };
                     }
 
                 case ActionType.DeleteFolders:
@@ -81,16 +86,25 @@ namespace project_manager
                         string sourceFolder = mroot.substitue_enviro_vars(node.Value.ToString());
                         string delete_pattern = "(.)";
 
-                        DeleteFolders deleteFolders = new DeleteFolders();
-                        deleteFolders.SourceFolder = sourceFolder;
-                        deleteFolders.DeletePattern = delete_pattern;
-                        return deleteFolders;
+                        return new DeleteFolders
+                        {
+                            SourceFolder = sourceFolder,
+                            DeletePattern = delete_pattern
+                        };
                     }
 
                 case ActionType.ZipFolder:
+                    {
 
-                    throw new NotSupportedException("Simple ZipFolder is not allowed");
+                        string sourceFolder = mroot.substitue_enviro_vars(node.Value.ToString());
+                        string zipfile_destination = System.IO.Path.ChangeExtension(sourceFolder, ".zip");
 
+                        return new ZipFolder
+                        {
+                            SourceFolder = sourceFolder,
+                            DestinationZip = zipfile_destination
+                        };
+                    }
             }
 
             return null;
