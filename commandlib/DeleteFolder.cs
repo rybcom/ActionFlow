@@ -34,7 +34,7 @@ namespace commandlib
                 return;
             }
 
-            Console.WriteLine($"delete folder [{dirPath}]");
+            Console.WriteLine($"\tdelete folder [{dirPath}]");
             dirInfo.Delete(recursive:true);
         }
 

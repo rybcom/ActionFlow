@@ -66,7 +66,7 @@ namespace commandlib
 
         private static void printCallback(string t)
         {
-            Console.WriteLine($"\t {t}");
+            Console.WriteLine($"\tdelete folder {t}");
         }
     }
 }

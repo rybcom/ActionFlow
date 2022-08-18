@@ -33,7 +33,7 @@ namespace commandlib
                 Console.Error.WriteLine($"file : {filePath} not exists");
             }
 
-            Console.WriteLine($"delete file [{filePath}]");
+            Console.WriteLine($"\tdelete file [{filePath}]");
             file.Delete();
         }
 

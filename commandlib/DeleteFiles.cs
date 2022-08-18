@@ -25,7 +25,7 @@ namespace commandlib
 
             base.DoAction();
 
-            DeleteAction(SourceFolder, DeletePattern, RecursiveDelete, printCallback);
+            DeleteAction(SourceFolder, DeletePattern, RecursiveDelete, deleteCallback);
         }
 
         #endregion
@@ -46,16 +46,12 @@ namespace commandlib
                 return;
             }
 
-            if (dir.FullName.Split('\\').Length < 6)
-            {
-                actionCallback(dir.FullName);
-            }
-
             var files = dir.GetFiles().Where(f => Regex.IsMatch(f.FullName, deletePattern));
 
             foreach (FileInfo file in files)
             {
                 file.Delete();
+                actionCallback(file.FullName);
             }
 
             if (delteInSubfolder)
@@ -69,9 +65,9 @@ namespace commandlib
 
         #endregion
 
-        private static void printCallback(string t)
+        private static void deleteCallback(string filePath)
         {
-            Console.WriteLine($"\t {t}");
+            Console.WriteLine($"\tdelete file [{filePath}]");
         }
     }
 }
