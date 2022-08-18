@@ -37,6 +37,15 @@ namespace project_manager
                     {
                         Message = mroot.substitue_enviro_vars(node.Value.ToString())
                     };
+                    
+                case ActionType.NewFolder:
+                    {
+                        string folder = mroot.substitue_enviro_vars(node.Value.ToString());
+                        return new NewFolder
+                        {
+                            FolderPath = folder
+                        };
+                    }
 
                 case ActionType.CopyFolder:
 
@@ -181,6 +190,15 @@ namespace project_manager
                         showDialog.MessageType = (ShowDialog.Type)Enum.Parse(typeof(ShowDialog.Type), node["messagetype"].ToString(), true);
                     }
                     return showDialog;
+
+                case ActionType.NewFolder:
+                    {
+                        string folder = mroot.substitue_enviro_vars(node["path"].ToString());
+                        return new NewFolder
+                        {
+                            FolderPath = folder
+                        };
+                    }
 
                 case ActionType.CopyFolder:
 

@@ -7,6 +7,7 @@ namespace commandlib
     {
         Wait,
         Execute,
+        NewFolder,
         CopyFolder,
         DeleteFile,
         DeleteFiles,
