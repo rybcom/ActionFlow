@@ -19,50 +19,50 @@
 > Create action_flow project file and save it as **.af** file 
 
 ```javascript
+
 project:
 {
-    name:'template project',
-    desc:'project focuses on the correct using of commands ',
+    name:'template project'
+    desc:'project focuses on the correct using of commands '
 
     execution:
     {
     	controlflow:
         {
-            condition:'dialog',
-            dialogtext:'yer or no ?',
+            condition:'dialog'
+            dialogtext:'yer or no ?'
             yes:
             {
-            	wait:'1000',
-            	showdialog:'how are you doing ?'
-            	execute:'||bin||/daily_remarks/daily_remarks.exe',
-            },
-            
+            }
             no:
             {
-				execute:
-				{
-					filename:'||defaultbrowser||',
-					params:'www.aktuality.sk'
-				},
             }    
-        },
+        }
 
-		deletefile:'||mroot||/temp/tttt/gear_watch/connect.bat',
+        execute:'||bin||/daily_remarks/daily_remarks.exe'
+
+        execute:
+        {
+			 filename:'||defaultbrowser||'
+			 params:'www.aktuality.sk'
+		}
+
+   		deletefile:"||mroot||/temp/tttt/gear_watch/connect.bat"
 
     	deletefiles:
         {
-            source:'||mroot||/temp/tttt',
-            recursive:'false',
-            pattern:'^*(.bat)'
-        },
-
-        deletefiles:'||mroot||/temp/tttt',
+            source:'||mroot||/temp/tttt'
+            recursive:'false'
+            pattern:'(\\.bat)$'
+        }
+        deletefiles:'||mroot||/temp/tttt'
+        
 
 		zipfolder:
         {
-            source:'||mroot||/test',
-            zipfile:'||mroot||/temp/ahoij.zip'
-        },
+            source:'||mroot||/test'
+            zipfile:'||mroot||/temp/ahoj.zip'
+        }
     }
 }
 

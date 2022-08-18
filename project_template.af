@@ -1,46 +1,45 @@
 project:
 {
-    name:'template project',
-    desc:'project focuses on the correct using of commands ',
+    name:'template project'
+    desc:'project focuses on the correct using of commands '
 
     execution:
     {
     	controlflow:
         {
-            condition:'dialog',
-            dialogtext:'yer or no ?',
+            condition:'dialog'
+            dialogtext:'yer or no ?'
             yes:
             {
-            },
-            
+            }
             no:
             {
             }    
-        },
+        }
 
-        execute:'||bin||/daily_remarks/daily_remarks.exe',
+        execute:'||bin||/daily_remarks/daily_remarks.exe'
 
         execute:
         {
-			 filename:'||defaultbrowser||',
+			 filename:'||defaultbrowser||'
 			 params:'www.aktuality.sk'
-		},
+		}
 
-   		deletefile:"||mroot||/temp/tttt/gear_watch/connect.bat",
+   		deletefile:"||mroot||/temp/tttt/gear_watch/connect.bat"
 
     	deletefiles:
         {
-            source:'||mroot||/temp/tttt',
-            recursive:'false',
-            pattern:'^*(.bat)'
-        },
+            source:'||mroot||/temp/tttt'
+            recursive:'false'
+            pattern:'(\\.bat)$'
+        }
         deletefiles:'||mroot||/temp/tttt'
         
 
 		zipfolder:
         {
-            source:'||mroot||/test',
-            zipfile:'||mroot||/temp/ahoij.zip'
-        },
+            source:'||mroot||/test'
+            zipfile:'||mroot||/temp/ahoj.zip'
+        }
     }
 }
