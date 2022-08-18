@@ -100,7 +100,6 @@ action_flow.exe testing_project_file.af
 ```xml
 <action
 	type="wait" 
-	name=""
 
 	desc="Slow down the process for millions of milliseconds"
 	duration_ms="" 
@@ -112,7 +111,6 @@ action_flow.exe testing_project_file.af
 ```xml
 <action
 	type="execute" 
-	name=""
 	desc="Starting the process with the given parameters"
 
 	filename=""
@@ -120,12 +118,22 @@ action_flow.exe testing_project_file.af
 />		 
 ```
 
+### newfolder
+
+```xml
+<action 
+	type="newfolder" 
+	desc="create empty folder"
+
+	path=""
+/>
+```
+
 ### copyfolder
 
 ```xml
 <action 
 	type="copyfolder" 
-	name=""
 	desc="recursively copying a directory with subdirectories and files that complete the copy pattern"
 
 	source=""
@@ -134,28 +142,28 @@ action_flow.exe testing_project_file.af
 	copy_dirpattern="(.)" 
 />
 ```
+
 ### copyfile
 
 ```xml
 <action 
 	type="copyfile" 
-	name=""
 	desc="Copy the file"
 
 	source=""
 	destination="" 
 />	
 ```
+
 ### deletefiles
 
 ```xml
 <action 
 	type="deletefiles" 
-	name=""
 	desc="Deleting files from the specified directory that complete the delete pattern"
 
 	source=""
-	delete_filepattern="" 
+	pattern:"(\\.png)$"
 	recursive="true" 
 />	
 ```
@@ -164,7 +172,6 @@ action_flow.exe testing_project_file.af
 ```xml
 <action 
 	type="deletefolders" 
-	name=""
 	desc="Delete folders"
 
 	source=""
@@ -176,7 +183,6 @@ action_flow.exe testing_project_file.af
 ```xml
 <action
 	type="zipfolder" 
-	name=""
 	desc="Create a zip archive from the selected folder to the specified target file"
 
 	source=""
@@ -188,7 +194,6 @@ action_flow.exe testing_project_file.af
 ```xml
 <action 
 	type="showdialog" 
-	name=""
 	desc="Show dialog with message"
 
 	message=""

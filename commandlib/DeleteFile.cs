@@ -31,6 +31,7 @@ namespace commandlib
             if(file.Exists == false)
             {
                 Console.Error.WriteLine($"file : {filePath} not exists");
+                return;
             }
 
             Console.WriteLine($"\tdelete file [{filePath}]");
