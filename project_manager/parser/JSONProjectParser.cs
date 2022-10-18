@@ -47,9 +47,7 @@ namespace project_manager
             JToken value = jsonProperty.Value;
 
             if (value.Type == JTokenType.Object)
-
             {
-
                 JObject jsonObject = value.ToObject<JObject>();
 
                 ActionBase action = ParseObjectAction(jsonObject, actionType);

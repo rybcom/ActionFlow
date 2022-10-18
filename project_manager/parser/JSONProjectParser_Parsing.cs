@@ -37,7 +37,7 @@ namespace project_manager
                     {
                         Message = mroot.substitue_enviro_vars(node.Value.ToString())
                     };
-                    
+
                 case ActionType.NewFolder:
                     {
                         string folder = mroot.substitue_enviro_vars(node.Value.ToString());
@@ -151,28 +151,51 @@ namespace project_manager
             switch (action_type)
             {
                 case ActionType.ControlFlow:
-                    var condition = (node["condition"].ToString());
-
-                    if (condition.Equals("dialog"))
                     {
-                        return ParseDialogControlFlow(node);
+
+                        var condition = (node["condition"].ToString());
+
+                        if (condition.Equals("dialog"))
+                        {
+                            return ParseDialogControlFlow(node);
+                        }
+
+                        return null;
                     }
 
-                    return null;
-
                 case ActionType.Execute:
+                    {
+                        string filename = mroot.substitue_enviro_vars(node["filename"].ToString());
+                        string paramxs = node.ContainsKey("params") ? mroot.substitue_enviro_vars(node["params"].ToString()) : "";
+                        bool onlyIfnotRunning = !node.ContainsKey("onlyIfNotRunning") || node["params"].Value<bool>();
 
-                    string filename = mroot.substitue_enviro_vars(node["filename"].ToString());
-                    string paramxs = node.ContainsKey("params") ? mroot.substitue_enviro_vars(node["params"].ToString()) : "";
-                    bool onlyIfnotRunning = node.ContainsKey("onlyIfNotRunning") ? node["params"].Value<bool>() : true;
+                        ExecuteProcess executeAction = new ExecuteProcess
+                        {
+                            FileName = filename,
+                            Params = paramxs,
+                            OnlyIfNotRunning = onlyIfnotRunning
+                        };
 
-                    ExecuteProcess executeAction = new ExecuteProcess();
-                    executeAction.FileName = filename;
-                    executeAction.Params = paramxs;
-                    executeAction.OnlyIfNotRunning = onlyIfnotRunning;
+                        return executeAction;
+                    }
 
-                    return executeAction;
+                case ActionType.Execute_If:
+                    {
+                        string condition = mroot.substitue_enviro_vars(node["condition"].ToString());
+                        string filename = mroot.substitue_enviro_vars(node["filename"].ToString());
+                        string paramxs = node.ContainsKey("params") ? mroot.substitue_enviro_vars(node["params"].ToString()) : "";
+                        bool onlyIfnotRunning = !node.ContainsKey("onlyIfNotRunning") || node["params"].Value<bool>();
 
+                        ExecuteIfProcess executeConditionalAction = new ExecuteIfProcess
+                        {
+                            ConditionExpression = condition,
+                            FileName = filename,
+                            Params = paramxs,
+                            OnlyIfNotRunning = onlyIfnotRunning
+                        };
+
+                        return executeConditionalAction;
+                    }
 
                 case ActionType.Wait:
                     int waittime = (node["duration_ms"].Value<Int32>());

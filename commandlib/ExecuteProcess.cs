@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
+using System;
 using System.Diagnostics;
 
 namespace commandlib
@@ -11,6 +13,16 @@ namespace commandlib
             string name = System.IO.Path.GetFileNameWithoutExtension(fullname);
             int processCount = Process.GetProcessesByName(name).Length;
             return processCount > 0;
+        }
+
+        public static string PCName => Environment.MachineName;
+
+        public static bool EvaluateAsync(string expression)
+        {
+            var result = CSharpScript.EvaluateAsync<bool>(expression,
+            ScriptOptions.Default.WithReferences(typeof(ProcessHelpers).Assembly).WithImports("commandlib.ProcessHelpers"));
+
+            return result.Result;
         }
     }
 
@@ -69,4 +81,27 @@ namespace commandlib
 
         #endregion
     }
+
+    public class ExecuteIfProcess : ExecuteProcess
+    {
+
+        #region property
+
+        public string ConditionExpression { get; set; }
+
+        #endregion
+
+        #region overridden
+
+        public override void DoAction()
+        {
+            if (ProcessHelpers.EvaluateAsync(this.ConditionExpression))
+            {
+                base.DoAction();
+            }
+        }
+    }
+
+    #endregion
+
 }
