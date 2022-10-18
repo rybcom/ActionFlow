@@ -14,16 +14,6 @@ namespace commandlib
             int processCount = Process.GetProcessesByName(name).Length;
             return processCount > 0;
         }
-
-        public static string PCName => Environment.MachineName;
-
-        public static bool EvaluateAsync(string expression)
-        {
-            var result = CSharpScript.EvaluateAsync<bool>(expression,
-            ScriptOptions.Default.WithReferences(typeof(ProcessHelpers).Assembly).WithImports("commandlib.ProcessHelpers"));
-
-            return result.Result;
-        }
     }
 
     public class ExecuteProcess : ActionBase
@@ -82,6 +72,20 @@ namespace commandlib
         #endregion
     }
 
+    public static class Script
+    {
+        public static string PC => Environment.MachineName;
+        public static string User => Environment.UserName;
+
+        public static bool EvaluateAsync(string expression)
+        {
+            var result = CSharpScript.EvaluateAsync<bool>(expression,
+            ScriptOptions.Default.WithReferences(typeof(ProcessHelpers).Assembly).WithImports("commandlib.Script"));
+
+            return result.Result;
+        }
+    }
+
     public class ExecuteIfProcess : ExecuteProcess
     {
 
@@ -95,7 +99,7 @@ namespace commandlib
 
         public override void DoAction()
         {
-            if (ProcessHelpers.EvaluateAsync(this.ConditionExpression))
+            if (Script.EvaluateAsync(this.ConditionExpression))
             {
                 base.DoAction();
             }
