@@ -4,7 +4,15 @@ project:
     desc:'project focuses on the correct using of commands '
 
     execution:
-    {
+    {   
+
+        execute_if:
+        {
+            condition:'PC == "mypc"'
+            filename:'||defaultbrowser||'
+            params:'www.cppreference.com'
+        }
+    
     	controlflow:
         {
             condition:'dialog'

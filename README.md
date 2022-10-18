@@ -27,7 +27,14 @@ project:
 
     execution:
     {
-    	controlflow:
+    	execute_if:
+        {
+            condition:'PC == "mypc"'
+            filename:'||defaultbrowser||'
+            params:'www.cppreference.com'
+        }
+
+        controlflow:
         {
             condition:'dialog'
             dialogtext:'yer or no ?'
@@ -86,6 +93,7 @@ action_flow.exe testing_project_file.af
 
 - [Wait](#wait)
 - [Execute](#execute)
+- [Execute](#execute_if)
 - [Copy folder](#copyfolder)
 - [Copy file](#copyfile)
 - [Delete files](#deletefiles)
@@ -113,6 +121,19 @@ action_flow.exe testing_project_file.af
 	type="execute" 
 	desc="Starting the process with the given parameters"
 
+	filename=""
+	params="" 
+/>		 
+```
+
+### execute_if
+
+```xml
+<action
+	type="execute_if" 
+	desc="Starting the process with the given parameters if condition is met"
+
+	condition=""
 	filename=""
 	params="" 
 />		 
