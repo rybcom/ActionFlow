@@ -75,6 +75,34 @@ project:
 
 ```
 
+Simple script to copy configuration files that uses only shortcut commands
+
+``` javascript
+project:
+{
+    name:'export portable etc'
+    desc:'creating interchangeable etc folder'
+
+    execution:
+    {
+        deletefolder:'||test||/etc'
+        deletefile:'||test||/etc.zip'
+        
+        copyfolder: '||mroot||/system/etc ---> ||test||/etc'
+
+        deletefolder:'||test||/etc/daily_remarks'
+        deletefolder:'||test||/etc/wox_plugins/devel_sandbox'
+        deletefolder:'||test||/etc/wox_plugins/guitar_chords'
+        deletefolder:'||test||/etc/wox_plugins/restarurat_menu'
+        deletefile:'||test||/etc/envvars.xml'
+
+        zipfolder:'||test||/etc ---> ||test||/etc.zip'
+        execute: '||dcommander|| -C -T ||test||'
+    }
+}
+
+```
+
 ---
 
 ## Example running actionflow file
@@ -113,6 +141,9 @@ action_flow.exe testing_project_file.af
 	duration_ms="" 
 />
 ```
+```javascript
+wait: 3000
+```
 
 ### execute
 
@@ -124,6 +155,9 @@ action_flow.exe testing_project_file.af
 	filename=""
 	params="" 
 />		 
+```
+```javascript
+execute: 'notepad.exe hello.exe'
 ```
 
 ### execute_if
@@ -149,6 +183,9 @@ action_flow.exe testing_project_file.af
 	path=""
 />
 ```
+```javascript
+newfolder: '||test||\tesing_folder'
+```
 
 ### copyfolder
 
@@ -163,6 +200,9 @@ action_flow.exe testing_project_file.af
 	copy_dirpattern="(.)" 
 />
 ```
+```javascript
+copyfolder: '||test||\tesing_folder ---> ||temp||\temp_folder'
+```
 
 ### copyfile
 
@@ -174,6 +214,9 @@ action_flow.exe testing_project_file.af
 	source=""
 	destination="" 
 />	
+```
+```javascript
+copyfile: '||test||\tesing-file.txt ---> ||temp||\temp-file.txt'
 ```
 
 ### deletefiles
@@ -188,6 +231,10 @@ action_flow.exe testing_project_file.af
 	recursive="true" 
 />	
 ```
+```javascript
+deletefiles: '||test|| , (\\.png)$'
+```
+
 ### deletefolders
 
 ```xml
@@ -199,6 +246,10 @@ action_flow.exe testing_project_file.af
 	delete_folderpattern="" 
 />		 
 ```
+```javascript
+deletefolders: '||test||'
+```
+
 ### zipfolder
 
 ```xml
@@ -210,6 +261,11 @@ action_flow.exe testing_project_file.af
 	zipfile="" 
 />		 
 ```
+```javascript
+zipfolder: '||test||\testing_folder ---> ||temp||\archive.zip'
+zipfolder: '||test||\testing_folder' // in place
+```
+
 ### showdialog
 
 ```xml
@@ -220,6 +276,9 @@ action_flow.exe testing_project_file.af
 	message=""
 	messagetype="info" 
 />		
+```
+```javascript
+showdialog: 'this is informative message'
 ```
 
 ---
