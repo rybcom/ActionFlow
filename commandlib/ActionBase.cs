@@ -15,6 +15,7 @@ namespace commandlib
         DeleteFolder,
         DeleteFolders,
         CopyFile,
+        CopyFileToClipboard,
         ZipFolder,
         ShowDialog,
         ControlFlow

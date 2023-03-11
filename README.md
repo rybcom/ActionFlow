@@ -121,9 +121,10 @@ action_flow.exe testing_project_file.af
 
 - [Wait](#wait)
 - [Execute](#execute)
-- [Execute](#execute_if)
+- [Execute If](#execute_if)
 - [Copy folder](#copyfolder)
 - [Copy file](#copyfile)
+- [Copy file to Clipboard](#copyfiletoclipboard)
 - [Delete files](#deletefiles)
 - [Delete folders](#deletefolders)
 - [Zip folder](#zipfolder)
@@ -217,6 +218,18 @@ copyfolder: '||test||\tesing_folder ---> ||temp||\temp_folder'
 ```
 ```javascript
 copyfile: '||test||\tesing-file.txt ---> ||temp||\temp-file.txt'
+```
+
+### copyfiletoclipboard
+
+```javascript
+copyfiletoclipboard:
+{
+    source:'||test||/archive.zip'
+}
+```
+```javascript
+copyfiletoclipboard: '||test||/archive.zip'
 ```
 
 ### deletefiles

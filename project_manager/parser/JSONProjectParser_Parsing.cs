@@ -36,6 +36,9 @@ namespace project_manager
                 case ActionType.CopyFile:
                     return CopyFile.GetCommandFrom(textValue);
 
+                case ActionType.CopyFileToClipboard:
+                    return CopyFileToClipboard.GetCommandFrom(textValue);
+
                 case ActionType.DeleteFile:
                     return DeleteFile.GetCommandFrom(textValue);
 
@@ -55,7 +58,6 @@ namespace project_manager
             return null;
         }
 
-
         private ControlFlow<DialogCondition, DialogResultYESNO> ParseDialogControlFlow(JObject node)
         {
 
@@ -66,7 +68,7 @@ namespace project_manager
 
             foreach (var result in Enum.GetValues(typeof(DialogResultYESNO)))
             {
-                var resultPath = (node[result.ToString().ToLower()]);
+                var resultPath = node[result.ToString().ToLower()];
 
                 var resultPathActions = new List<ActionBase>();
                 flow.ActionControlFlowList[(DialogResultYESNO)result] = resultPathActions;
@@ -160,31 +162,44 @@ namespace project_manager
                     }
 
                 case ActionType.CopyFolder:
+                    {
+                        string source = mroot.substitue_enviro_vars(node["source"].ToString());
+                        string destination = mroot.substitue_enviro_vars(node["destination"].ToString());
+                        string file_pattern = node.ContainsKey("copy_filepattern") ? node["copy_filepattern"].ToString() : null;
+                        string dir_pattern = node.ContainsKey("copy_dirpattern") ? node["copy_dirpattern"].ToString() : null;
 
-                    string source = mroot.substitue_enviro_vars(node["source"].ToString());
-                    string destination = mroot.substitue_enviro_vars(node["destination"].ToString());
-                    string file_pattern = node.ContainsKey("copy_filepattern") ? node["copy_filepattern"].ToString() : null;
-                    string dir_pattern = node.ContainsKey("copy_dirpattern") ? node["copy_dirpattern"].ToString() : null;
+                        CopyFolder copyFolder = new CopyFolder();
+                        copyFolder.Source = source ?? copyFolder.Source;
+                        copyFolder.Destination = destination ?? copyFolder.Destination;
+                        copyFolder.CopyFilePattern = file_pattern ?? copyFolder.CopyFilePattern;
+                        copyFolder.CopyDirPattern = dir_pattern ?? copyFolder.CopyDirPattern;
 
-                    CopyFolder copyFolder = new CopyFolder();
-                    copyFolder.Source = source ?? copyFolder.Source;
-                    copyFolder.Destination = destination ?? copyFolder.Destination;
-                    copyFolder.CopyFilePattern = file_pattern ?? copyFolder.CopyFilePattern;
-                    copyFolder.CopyDirPattern = dir_pattern ?? copyFolder.CopyDirPattern;
-
-                    return copyFolder;
+                        return copyFolder;
+                    }
 
                 case ActionType.CopyFile:
-
-                    source = mroot.substitue_enviro_vars(node["source"].ToString());
-                    destination = mroot.substitue_enviro_vars(node["destination"].ToString());
-
-                    CopyFile copyFile = new CopyFile
                     {
-                        Source = source,
-                        Destination = destination
-                    };
-                    return copyFile;
+                        string source = mroot.substitue_enviro_vars(node["source"].ToString());
+                        string destination = mroot.substitue_enviro_vars(node["destination"].ToString());
+
+                        CopyFile copyFile = new CopyFile
+                        {
+                            Source = source,
+                            Destination = destination
+                        };
+                        return copyFile;
+                    }
+
+                case ActionType.CopyFileToClipboard:
+                    {
+                        string source = mroot.substitue_enviro_vars(node["source"].ToString());
+
+                        CopyFileToClipboard copyFileToClipboard = new CopyFileToClipboard
+                        {
+                            Source = source
+                        };
+                        return copyFileToClipboard;
+                    }
 
                 case ActionType.DeleteFile:
                     {

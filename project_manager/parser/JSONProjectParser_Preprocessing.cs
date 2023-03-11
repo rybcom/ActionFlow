@@ -8,9 +8,7 @@ namespace project_manager
 {
     internal static class JsonPreprocessor
     {
-
         #region api
-
         internal static IEnumerable<string> ActionTypeWordList
         {
             get
@@ -101,7 +99,6 @@ namespace project_manager
 
 
         #endregion
-
     }
 
 }

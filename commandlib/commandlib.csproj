@@ -88,6 +88,7 @@
     <Compile Include="ActionBase.cs" />
     <Compile Include="ControlFlow.cs" />
     <Compile Include="CopyFile.cs" />
+    <Compile Include="CopyFileToClipboard.cs" />
     <Compile Include="NewFolder.cs" />
     <Compile Include="CopyFolder.cs" />
     <Compile Include="DeleteFolder.cs" />
